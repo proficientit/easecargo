@@ -1,4 +1,8 @@
 easecargo
+<<<<<<< HEAD
+=========
+=======
 =========
 
-Cargo Application
+Ease Cargo Application
+>>>>>>> Initial commit

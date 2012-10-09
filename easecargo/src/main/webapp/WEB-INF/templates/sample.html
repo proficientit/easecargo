@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<h2>Hello Sample</h2>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+      <form action="#" th:action="@{/sample}" th:object="${sample}" method="post">
+ 				Hello  <input type="text" th:field="*{name}" />
+              <table>
+         
+             
+                <tr th:each="row,rowStat : *{sampleInners}">
+                  <td th:text="${rowStat.count}">1</td>
+
+                  <td>
+                    <input type="text" th:field="*{sampleInners[__${rowStat.index}__].name}" />
+                  </td>
+                  <td>
+					<button type="submit" name="addRow" >Add row</button>
+                  </td>
+                </tr>
+             
+            </table>
+         
+
+      </form>
+	</body>
+</html>

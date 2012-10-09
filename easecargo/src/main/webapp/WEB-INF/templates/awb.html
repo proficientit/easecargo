@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>AWB</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/awb.css" th:href="@{/css/awb.css}"/>
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/memu.css" th:href="@{/css/memu.css}"/>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/jquery.placeholder.js"></script>
+    <style>
+    	 .placeholder {color: #aaa;}
+    	 input:-moz-placeholder { color:#aaa; }
+   	</style>
+
+<script language="javascript">
+
+function goLite(FRM,BTN)
+{
+    window.document.forms[FRM].elements[BTN].style.backgroundColor = "#EEDDFF";
+}
+
+function goDim(FRM,BTN)
+{
+   window.document.forms[FRM].elements[BTN].style.backgroundColor = "#FFFFFF";
+}
+
+function updateTitles(){
+	 var awbNumber = window.document.getElementById("prefix").value + ' - ' + window.document.getElementById("awbnumber").value;    	 
+	 var field1 = window.document.getElementById("awbtitle1");
+	 field1.innerHTML  = awbNumber;
+	 var field2 = window.document.getElementById("awbtitle2");
+	 field2.innerHTML  = awbNumber;
+	 var field3 = window.document.getElementById("awbtitle3");
+	 field3.innerHTML  = awbNumber;
+}
+
+function countTotal(){	
+	var val1 = window.document.getElementById("rateLinesList0.noOfPieces").value;
+	var val2 = window.document.getElementById("rateLinesList1.noOfPieces").value;
+	var val3 = window.document.getElementById("rateLinesList2.noOfPieces").value;
+	var val4 = window.document.getElementById("rateLinesList3.noOfPieces").value; 
+	count(new Array(val1,val2,val3,val4),window.document.getElementById("totalpieces"));
+	 
+	val1 = window.document.getElementById("rateLinesList0.grossWeight").value;
+	val2 = window.document.getElementById("rateLinesList1.grossWeight").value;
+	val3 = window.document.getElementById("rateLinesList2.grossWeight").value;
+	val4 = window.document.getElementById("rateLinesList3.grossWeight").value; 
+	count(new Array(val1,val2,val3,val4),window.document.getElementById("totalGrossWeight"));
+	
+	val1 = window.document.getElementById("rateLinesList0.total").value;
+	val2 = window.document.getElementById("rateLinesList1.total").value;
+	val3 = window.document.getElementById("rateLinesList2.total").value;
+	val4 = window.document.getElementById("rateLinesList3.total").value; 
+	count(new Array(val1,val2,val3,val4),window.document.getElementById("totalChargeAmount"));	 
+	    
+}
+
+function countPrepaid(){	
+	var val1 = window.document.getElementById("wtchargesprepaid").value; 
+	var val2 = window.document.getElementById("valchargeprepaid").value; 
+	var val3 = window.document.getElementById("taxprepaid").value; 
+	var val4 = window.document.getElementById("totalppdothchrgagt").value; 
+	var val5 = window.document.getElementById("totalppdothchrgcarr").value; 
+	count(new Array(val1,val2,val3,val4,val5),window.document.getElementById("totalprepaid"));		     
+}
+
+function countCollect(){	
+	var val1 = window.document.getElementById("wtchargescollect").value; 
+	var val2 = window.document.getElementById("valchargescollect").value; 
+	var val3 = window.document.getElementById("taxchargescollect").value; 
+	var val4 = window.document.getElementById("totalchargeDueAgentOC").value; 
+	var val5 = window.document.getElementById("totalChargeDureCarrierOC").value; 
+	count(new Array(val1,val2,val3,val4,val5),window.document.getElementById("totalcollect"));
+}
+
+function count(fields, target){
+	var valsum = 0;
+	if(fields[0].trim() !=""){
+		valsum += parseInt(fields[0].trim()); 
+	}
+	if(fields[1].trim() !=""){
+		valsum += parseInt(fields[1].trim()); 
+	}
+	if(fields[2].trim() !=""){
+		valsum += parseInt(fields[2].trim()); 
+	}
+	if(fields[3].trim() !=""){
+		valsum += parseInt(fields[3].trim()); 
+	}	 
+	target.value = valsum;	
+}
+
+
+ 
+</script>
+
+  </head>
+
+  <body onload="countTotal()">
+
+    <div>
+      <img src="../../images/title.png" alt="eCargo logo" title="title logo"
+           th:src="@{/images/title.png}" th:alt-title="#{title.application}"/>
+    </div>
+	<!--  Menu -->
+ 	<table width="100%"><tr><td class="greycol">
+		<div >
+
+		<ul class="memu">
+						<li class="memu-root">
+							<a href="#">Airway Bill</a>
+							<ul>
+								<li><a href="/awb/awb"><div></div>AWB</a></li>
+								<li><a href="/awb/hawb"><div></div>HAWB</a></li>
+							</ul>
+						</li>
+						<li class="memu-root">
+							<a href="#">Messages</a>
+							<ul>
+								<li><a href="/awb/message"><div></div>View/Send Message</a></li>
+							</ul>
+						</li>
+				<li class="memu-root">
+					<a href="#">My EaseCargo</a>
+					<ul>
+						<li><a href="/awb/myprofile"><div></div>My Profile</a></li>
+						<li><a href="/awb/myaccount"><div></div>My Account</a></li>
+						<li><a href="/awb/myawbs"><div></div>My AWBs</a></li>
+						<li><a href="/awb/mymessages"><div></div>My Messages</a></li>
+						<li><a href="/awb/mybillings"><div></div>My Billing</a></li>
+						<li><a href="/awb/mycustomers"><div></div>My Customers</a></li>
+					</ul>
+				</li>
+						<li class="memu-root">
+							<a href="#">Admin</a>
+							<ul>
+								<li><a href="#"><div></div>Manage Users</a></li>
+								<li><a href="#"><div></div>Manage Accounts</a></li>
+								<li class="has-children">
+										<a href="#"><div></div>Masters</a>
+										<ul>
+											<li><a href="/awb/codemaster"><div></div>Manage Codes</a></li>
+											<li><a href="/awb/citymaster"><div></div>Manage City/Airport</a></li>
+											<li><a href="/awb/currencymaster"><div></div>Manage Currency</a></li>
+										</ul>
+								</li>
+							</ul>
+						</li>
+				</ul>
+		</div>
+		</td></tr>
+	</table>
+<br/>
+<div class="breadcrumbs">
+<table width="100%"><tr > <td>easycargo > awb > capture awb</td><td align="right"><span class="warningcaption">* indicates mandatory fields</span></td></tr></table>
+</div>
+<br/>
+
+	<form name="awbform" action="#" th:action="@{/awb}" th:object="${airwayBill}"  method="post">
+
+	<div style="position: absolute;
+	              left: 1000px;
+	              top: 115px;
+	              width: 200px;
+	              height: 20px;">Welcome <input type="text" th:field="*{user.userName}"/> <input type="hidden" th:field="*{user.userId}"/></div>
+
+
+     <div>
+	<!-- full table - enclosed -->
+	<table class="enclosed">
+		<!-- AWB Header line -->
+        <tr class="awbheader"> <td align="center"><label id="awbtitle1" th:text="*{aWBString}"/></td><td align="right"><label th:text="*{aWBString}" id="awbtitle2"/></td></tr>
+
+		<!-- ROW number 1 -->
+        <tr height="100"> <td width="50%" class="enclosedtd">
+			<table width="100%" >
+					<!-- Shipper Name and Address -->
+  					<tr height="30"><td>
+  			  			<table class="shipperlabeltable">
+  			  				<tr height="30"><td>Shipper Name and Address</td><td align="right"  class="leftlineonly bottomonly">Account Number<input type="text" placeholder="Account Number" th:field="*{shipper.accountNumber}"/></td></tr>
+  			  			</table>
+  			  		</td></tr>
+  			  		<tr height="80"><td >
+  			  					<table  width="100%">
+  			  						<tr><td width="50%" align="right"><label for="shipper"><em>*</em>Name</label><input type="text" id="shipper" required="required" placeholder="Shipper Name" th:field="*{shipper.customerName}" size="25"/></td><td  align="right">Tel.No<input type="text" placeholder="Telephone" th:field="*{shipper.phoneNumber}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right">Contact<input type="text" placeholder="Contact Name" th:field="*{shipper.contactName}" size="25"/></td><td  align="right"><label for="pobox"><em>*</em>POBox</label><input type="text" id="pobox" required="required" placeholder="PoBox" th:field="*{shipper.poBox}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right"><label for="address"><em>*</em>Address</label><input id="address" type="text" required="required" placeholder="Address line" th:field="*{shipper.address}" size="25"/></td><td  align="right"><label for="country"><em>*</em>Country</label><input type="text" id="country" required="required" placeholder="Code or Name" th:field="*{shipper.countryName}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right"><label for="city"><em>*</em>City</label><input type="text" id="city" required="required" placeholder="Code or Name" th:field="*{shipper.cityName}" size="25"/></td><td  align="right">Email<input type="email" placeholder="Email" th:field="*{shipper.email}" size="25"/></td></tr>
+  			  					</table>
+  			  		</td></tr>
+  			</table>
+        </td>
+        <td class="enclosedtd">
+        	<table width="100%">
+        		<tr height="80"><td>
+        				<table width="100%"><tr height="80">
+        				   <td width="50%">
+        				   		<table width="100%">
+        				   			<tr height="10"><td><h3>Air Waybill - IATA Compliant</h3></td></tr>
+        				   			<tr height="40"><td><label for="prefix"><em>*</em></label><input type="text" id="prefix" pattern="[0-9]{3}" required="required" title="3 digit number" placeholder="Prefix" size="3" th:field="*{awbPrefix}"/><label for="awbnumber"><em>*</em></label><input type="text" id="awbnumber" required="required" pattern="[0-9]{8}" placeholder="Number" size="10" th:field="*{awbNumber}" onchange="updateTitles()"/><button type="submit" name="query" onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)"  formnovalidate="formnovalidate">Template</button></td></tr>
+        				   		</table>
+        				   </td>
+        				   <td>
+    			  				<table  width="100%">
+  			  						<tr><td width="50%" align="right">IssuedBy<input type="text" placeholder="IssuedBy" th:field="*{otherParty.customerName}" size="20"/></td></tr>
+  			  						<tr><td width="50%" align="right">Address<input type="text" placeholder="Address" th:field="*{otherParty.address}"/></td></tr>
+  			  						<tr><td width="50%" align="right">City<input type="text" placeholder="Code or Name" th:field="*{otherParty.cityName}"/></td></tr>
+  			  						<tr><td width="50%" align="right">Country<input type="text" placeholder="Code or Name" th:field="*{otherParty.countryName}"/></td></tr>
+  			  					</table>
+      				   </td>
+        				</tr></table>
+        		</td></tr>
+        		<tr height="36"><td class="toplineonly">Copies 1, 2 and 3 of this Air Waybill are originals and have the same validity.</td></tr>
+        	</table>
+        </td></tr>
+        <!-- Row 1 completed -->
+
+		<!-- ROW number 2 -->
+        <tr height="100"> <td width="50%" class="enclosedtd">
+			<table width="100%" >
+					<!-- Shipper Name and Address -->
+  					<tr height="30"><td>
+  			  			<table class="shipperlabeltable">
+  			  				<tr height="30"><td>Consignee Name and Address</td><td align="right" class="greycol leftlineonly bottomonly">Account Number<input class="greycol"  placeholder="Account Number" type="text" th:field="*{consignee.accountNumber}"/></td></tr>
+  			  			</table>
+  			  		</td></tr>
+  			  		<!-- AWB Header on the left right corner -->
+  			  		<tr height="80"><td>
+  			  					<table  width="100%">
+  			  						<tr><td width="50%" align="right"><label for="consignee"><em>*</em>Name</label><input type="text" id="consignee" required="required" placeholder="Consignee Name" th:field="*{consignee.customerName}" size="25"/></td><td  align="right">Tel.No<input type="text" placeholder="Telephone" th:field="*{consignee.phoneNumber}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right">Contact<input type="text" placeholder="Contact Name" th:field="*{consignee.contactName}" size="25"/></td><td  align="right"><label for="conigneepobox"><em>*</em>POBox</label><input type="text" id="consigneepobox" required="required" placeholder="PoBox" th:field="*{consignee.poBox}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right"><label for="consigneeaddress"><em>*</em>Address</label><input type="text" id="consigneeaddress" required="required" placeholder="Address Line" th:field="*{consignee.address}" size="25"/></td><td  align="right"><label for="consigneecountry"><em>*</em>Country</label><input type="text" id="cosigneecountry" required="required" placeholder="Code or Name" th:field="*{consignee.countryName}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right"><label for="consigneecity"><em>*</em>City</label><input type="text" id="consigneecity" required="required" placeholder="Code or Name" th:field="*{consignee.cityName}" size="25"/></td><td  align="right">Email<input type="email" placeholder="Email" th:field="*{consignee.email}" size="25"/></td></tr>
+  			  					</table>
+  			  		</td></tr>
+  			</table>
+        </td>
+        <td class="enclosedtd">
+        	It is agreed that the goods described herein are accepted in apparent good order and condition
+			(except as noted) for carriage SUBJECT TO THE CONDITIONS OF CONTRACT ON THE
+			REVERSE HEREOF,  PLACES WHICH THE CARRIER DEEMS APPROPRIATE THE
+			SHIPPER'S ATTENTION IS DRAWN TO THE NOTICE CONCERNING CARRIER'S LIMITATION
+			OF LIABILITY
+        </td></tr>
+        <!-- Row 2 completed -->
+
+
+		<!-- ROW 3 start -->
+        <tr height="100"><td width="50%" class="enclosedtd">
+			<table width="100%">
+					<!-- Agency Name and Address -->
+  					<tr height="30"><td>
+  			  			<table class="shipperlabeltable">
+  			  				<tr height="100%"><td>Issueing Carrier's Agency Name and Address</td></tr>
+  			  			</table>
+  			  		</td></tr>
+  			   		<tr height="85"><td>
+  			  					<table  width="100%">
+  			  						<tr><td width="50%" align="right"><label for="agencyname"><em>*</em>Name</label><input type="text" id="agencyname" required="required" placeholder="Agency Name" th:field="*{agent.customerName}" size="25"/></td><td  align="right">Tel.No<input type="text" placeholder="Telephone" th:field="*{agent.phoneNumber}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right">Contact<input type="text" placeholder="Contact Name" th:field="*{agent.contactName}" size="25"/></td><td  align="right">POBox<input type="text" placeholder="PoBox" th:field="*{agent.poBox}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right">Address<input type="text" placeholder="Address" th:field="*{agent.address}" size="25"/></td><td  align="right">Country<input type="text" placeholder="Code or Name" th:field="*{agent.countryName}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right"><label for="agencycity"><em>*</em>City</label><input type="text" id="agencycity" required="required" placeholder="Code or Name" th:field="*{agent.cityName}" size="25"/></td><td  align="right">Email<input type="email" placeholder="Email" th:field="*{agent.email}" size="25"/></td></tr>
+  			  					</table>
+  			  		</td></tr>
+  			  		<tr height="35">
+  			  		            <td><table width="100%" class="toplineonly">
+									<tr height="30">
+										<td class="toprightonly"><label for="agencyiatacode"><em>*</em>Agent's IATA Code</label><input type="text" id="agencyiatacode" required="required" pattern="[0-9]{1,}" placeholder="IATA Code" size="20" th:field="*{agent.agentIATACode}" /></td>
+										<td class="toprightonly"><label for="agencycasscode"><em>*</em>Agents CASS Code</label><input type="text" id="agencycasscode" required="required" pattern="[0-9]{1,}" placeholder="CASS Code" size="20" th:field="*{agent.agentIATACASSCode}"/></td>
+										<td class="toplineonly">AccountNumber<input type="text" placeholder="Account Number" size="20" th:field="*{agent.accountNumber}"/></td>
+									</tr>
+								</table></td>
+  			  		</tr>
+  			</table>
+         </td><td width="50%">
+         	<table width="100%">
+         	   <tr height="30"><td>Accounting Information</td></tr>
+         	   <tr height="122"><td>
+         	   		<table width="100%">
+         	   		<tr height="22" th:each="accountInfo,rowStat : *{accountInfoList}">
+         	   			 <td>Code<input type="text" placeholder="code" th:field="*{accountInfoList[__${rowStat.index}__].accountIdentity}"/></td><td width="60%">Desc.<input type="text" placeholder="description" th:field="*{accountInfoList[__${rowStat.index}__].accountInformation}"/></td> 
+         	   			<!-- <tr height="22"><td>Code<input type="text" placeholder="code" th:field="*{accountInfos[1].accountIdentity}"/></td><td width="60%">Desc.<input type="text" placeholder="description" th:field="*{accountInfos[1].accountInformation}"/></td></tr>
+         	   			<tr height="22"><td>Code<input type="text" placeholder="code" th:field="*{accountInfos[2].accountIdentity}"/></td><td width="60%">Desc.<input type="text" placeholder="description" th:field="*{accountInfos[2].accountInformation}"/></td></tr>
+         	   			<tr height="25"><td>Code<input type="text" placeholder="code" th:field="*{accountInfos[3].accountIdentity}"/></td><td width="60%">Desc.<input type="text" placeholder="description" th:field="*{accountInfos[3].accountInformation}"/></td></tr>
+         	   			<tr height="30"><td>Code<input type="text" placeholder="code" th:field="*{accountInfos[4].accountIdentity}"/></td><td width="60%">Desc.<input type="text" placeholder="description" th:field="*{accountInfos[4].accountInformation}"/></td></tr>
+         	   		--> </tr> </table>
+         	   	</td></tr>
+			</table>
+         </td></tr>
+        <!-- End of ROW 3 end -->
+		<!-- Row 4 Start -->
+        <tr height="100">
+        	<td width="50%" class="enclosedtd">
+        		<table width="100%" >
+        			<tr height="40"><td><label for="origin"><em>*</em>Airport of Departure (Addr. of First Carrier) and Requested Routing</label><input type="text" id="origin" required="required" placeholder="Airport" th:field="*{originLocationName}" pattern="[a-zA-Z0-9\s]{0,6}"/></td></tr>
+        			<tr height="40"><td>
+        				<table width="100%">
+        					<tr height="50">
+        						<td class="toprightonly"><label for="to"><em>*</em>To</label><input type="text" id="to" required="required" placeholder="Airport" size="5" th:field="*{routingAirport}" pattern="[a-zA-Z0-9\s]{0,6}"/></td>
+        						<td class="toprightonly" width="150"><label for="carrier"><em>*</em>First Carrier</label><input type="text" id="carrier" required="required" placeholder="Carrier" size="25" th:field="*{firstCarrier}" /></td>
+        						<td class="toprightonly">to<input type="text" placeholder="Airport" size="5" th:field="*{transitTo1}" pattern="[a-zA-Z]{3}"/></td>
+        						<td class="toprightonly">by<input type="text" placeholder="Carrier" size="5" th:field="*{transitBy1}" pattern="[a-zA-Z0-9]{2}"/></td>
+        						<td class="toprightonly">to<input type="text" placeholder="Airport" size="5" th:field="*{transitTo2}" pattern="[a-zA-Z]{3}"/></td>
+        						<td class="toplineonly">by<input type="text" placeholder="Carrier" size="5" th:field="*{transitBy2}" pattern="[a-zA-Z0-9]{2}"/></td>
+        					</tr>
+        				</table>
+        			</td></tr>
+        			<tr height="40"><td>
+        				<table width="100%">
+        					<tr height="40">
+        						<td class="toprightonly"><label for="destination"><em>*</em>Airport of Destination</label><input type="text" id="destination" required="required" placeholder="Airport" th:field="*{destinationLocationName}"/></td>
+        						<td class="toprightonly">Flight Number<input type="text" placeholder="Flight Number" pattern="[a-zA-Z0-9]{5,6}" th:field="*{flightNumber}"/></td>
+        						<td class="toplineonly">Flight Date<input type="date" placeholder="Date of Dep." th:field="*{flightDate}"/></td></tr>
+        				</table>
+        			</td></tr>
+        		</table>
+        	</td>
+
+        	<td class="enclosedtd">
+        		<table width="100%" >
+        			<tr height="40"><td>
+        				<table width="100%" >
+        					<tr height="40">
+        						<td>Reference Number<input type="text" placeholder="Ref Num" th:field="*{referenceNumber}" pattern="[0-9]{1,}"/></td>
+        						<td>Optional Shipping Info<input type="text" placeholder="Optional Notes" th:field="*{optionalShipmentInfo}"/></td>
+        					</tr>
+        				</table></td>
+        			</tr>
+        			<tr height="40"><td>
+        				<table width="100%" >
+        					<tr height="40"><td>
+        						<table width="100%">
+        							<tr height="30">
+        								<td class="toprightonly" width="20"><label for="srccurrency"><em>*</em>Currency</label><input type="text" id="srccurrency" required="required" pattern="[a-zA-Z]{3}" placeholder="CUR" size="3" th:field="*{sourceCurrencyCode}"/></td>
+        								<td class="toprightonly" width="5"><label for="chgs"><em>*</em>CHGS</label><input id="chgs" type="text" required="required" placeholder="CGH" size="3" th:field="*{chanrgeCode}"/></td>
+        								<td class="toprightonly" width="20" align="center">WT/VAL
+        													<table width="100%">
+																	<tr><td class="toprightonly">PP</td><td class="toplineonly">CC</td></tr>
+        								        					<tr><td class="toprightonly"><input type="checkbox"/></td><td><input type="checkbox"/></td></tr>
+        								        			</table>
+        								</td>
+        								<td class="toprightonly" width="20" align="center">Other
+        													<table width="100%">
+																	<tr><td class="toprightonly">PP</td><td class="toplineonly">CC</td></tr>
+        								        					<tr><td class="toprightonly"><input type="checkbox"/></td><td><input type="checkbox"/></td></tr>
+        								        			</table>
+        								</td>
+        							</tr>
+        						</table></td>
+        						<td class="toprightonly" width="100">Dec.ValCarr.<input type="text" placeholder="Carrier" pattern="[0-9NCV]{1,}" size="10" th:field="*{declaredValueCustoms}"/></td>
+        						<td class="toplineonly" width="100">Dec.Val.Cus.<input type="text" placeholder="Customs" pattern="[0-9NVD]{1,}" size="10" th:field="*{declaredValueCarriage}"/></td>
+        					</tr>
+        				</table></td>
+        			</tr>
+        			<tr height="30"><td>
+        				<table width="100%" class="toplineonly">
+        					<tr height="40">
+        						<td class="toprightonly">Insurance <input type="text" placeholder="Insurance" size="10" th:field="*{decalredValueInsurance}"/></td>
+        						<td>Insurance : If carrier offers insurance, and such insurance inditions there   'Amount of Insurance'</td>
+        					</tr>
+        				</table></td>
+        			</tr>
+        		</table>
+        	</td></tr>
+		</table>
+
+		<!-- Row 4 completion -->
+ 		<!-- ROW 5 Completion -->
+		<table class="leftrightlineonly" width="100%" >
+       		<tr height="100">
+       			<td  >
+       					<table width="100%"><tr height="100">
+       					 	<td width="80%">
+							  <table width="100%">
+								<tr height="30"><td>Handling Information</td></tr>
+								<tr height="80">
+									<td>
+										<table width="100%">
+											<tr height="33" th:each="handlingInfo,rowStat : *{handlingInfoList}">
+												<td width="30%">SSR<input type="text" placeholder="SSR" size="10" th:field="*{handlingInfoList[__${rowStat.index}__].serviceTypeCode}"/></td><td>Desc.<input type="text" placeholder="Description" size="40"  th:field="*{handlingInfoList[__${rowStat.index}__].serviceTypeText}"/></td>
+											<!-- <tr height="33"><td>OSI<input type="text" placeholder="OSI" size="10" th:field="*{handlingInfos[1].serviceTypeCode}"/></td><td>Desc.<input type="text" placeholder="Description" size="40"  th:field="*{handlingInfos[1].serviceTypeText}"/></td></tr>
+											<tr height="33"><td>OCI<input type="text" placeholder="OCI" size="10" th:field="*{handlingInfos[2].serviceTypeCode}"/></td><td>Desc.<input type="text" placeholder="Description" size="40"  th:field="*{handlingInfos[2].serviceTypeText}"/></td></tr>
+											--> </tr>
+										</table>
+									</td>
+								</tr>
+								<tr height="30">
+									<table width="100%"><tr>
+									<td>SHC<input type="text" placeholder="SHC" th:field="*{shc1}" size="5"/></td>
+									<td><input type="text" placeholder="SHC" th:field="*{shc2}" size="5"/></td>
+									<td><input type="text" placeholder="SHC" th:field="*{shc3}" size="5"/></td>
+									<td><input type="text" placeholder="SHC" th:field="*{shc4}" size="5"/></td>
+									<td><input type="text" placeholder="SHC" th:field="*{shc5}" size="5"/></td>
+									<td><input type="text" placeholder="SHC" th:field="*{shc6}" size="5"/></td>
+									<td><input type="text" placeholder="SHC" th:field="*{shc7}" size="5"/></td>
+									<td><input type="text" placeholder="SHC" th:field="*{shc8}" size="5"/></td>
+									<td><input type="text" placeholder="SHC" th:field="*{shc9}" size="5"/></td>
+									</tr></table>
+								</tr>
+							  </table>
+       					    </td>
+       					    <td width="10%">
+								<table width="100%">
+									<tr height="140"><td></td></tr>
+									<tr height="41"><td class="lefttoponly">SCI<input type="text" placeholder="SCI" size="5" th:field="*{sci}"/></td></tr>
+								</table>
+       					    </td>
+       					</tr></table>
+				</td>
+			</tr>
+		</table>
+		<!-- ROW 5 End -->
+
+
+	 <!-- Rate line table -->
+     <table class="enclosed" width="100%">
+     		<th>No.Pieces</th><th>GrossWt.</th><th>KgLb</th><th>RateClass</th><th>CommodityItemNo</th><th>ChargableWt.</th><th>Rate/Charge</th><th>Total</th><th>Nature and Quantity</th>
+     		<tr height="33" th:each="rateLine,rowStat : *{rateLinesList}">     		
+     			<td class="enclosed"><input type="text" placeholder="TotalPcs" size="5" th:field="*{rateLinesList[__${rowStat.index}__].noOfPieces}" onchange="countTotal()"/></td>
+     			<td class="enclosed"><input type="text" placeholder="GrossWt." size="5"  th:field="*{rateLinesList[__${rowStat.index}__].grossWeight}" onchange="countTotal()"/></td>
+     			<td class="enclosed"><input type="text" placeholder="GrossWtUnit" size="5"  th:field="*{rateLinesList[__${rowStat.index}__].grossWeightUnit}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="RateClass" size="5"  th:field="*{rateLinesList[__${rowStat.index}__].rateClassCode}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="CommodityItemNo" size="5"  th:field="*{rateLinesList[__${rowStat.index}__].commodityItemNumber}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="ChargableWt." size="5"  th:field="*{rateLinesList[__${rowStat.index}__].chargedWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="Rate/Charge" size="5"  th:field="*{rateLinesList[__${rowStat.index}__].chargedWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="Total" size="5"  th:field="*{rateLinesList[__${rowStat.index}__].total}" onchange="countTotal()"/></td>
+     			<td class="enclosed">
+     				<table width="100%">
+     					<tr><td><input type="text" placeholder="NatureGoods" size="20" th:field="*{rateLinesList[__${rowStat.index}__].natureOfGoods}"/></td></tr>
+     					<tr th:each="dimLine,dimStat : *{rateLinesList[__${rowStat.index}__].dims}"> <td>
+							 <input type="text" placeholder="Width" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dims[__${dimStat.index}__].width}"/>
+							 <input type="text" placeholder="Length" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dims[__${dimStat.index}__].length}"/>
+							 <input type="text" placeholder="Height" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dims[__${dimStat.index}__].height}"/>
+							 <input type="text" placeholder="Unit" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dims[__${dimStat.index}__].unit}"/>
+							  <input type="text" placeholder="Pieces" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dims[__${dimStat.index}__].noOfPieces}"/>
+							   <input type="text" placeholder="Weight" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dims[__${dimStat.index}__].weight}"/>
+							    <input type="text" placeholder="Unit" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dims[__${dimStat.index}__].weightUnit}"/>
+							<!--<input type="text" placeholder="Length" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dimensions[0].length}"/>
+							<input type="text" placeholder="Height" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dimensions[0].height}"/>
+							<input type="text" placeholder="Unit" size="10" th:field="*{rateLinesList[__${rowStat.index}__].dimensions[0].unit}"/>
+						--> </td></tr>
+						<tr><td>
+							<!--<input type="text" placeholder="Pieces" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dimensions[0].noOfPieces}"/>
+							<input type="text" placeholder="Weight" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dimensions[0].weight}"/>
+							<input type="text" placeholder="WtUnit" size="5" th:field="*{rateLinesList[__${rowStat.index}__].dimensions[0].weightUnit}"/>
+						 --></td></tr>
+					</table>
+     			</td>
+     		</tr>
+     		<!-- <tr height="30">
+     			<td class="enclosed"><input type="text" placeholder="TotalPcs" size="5" th:field="*{rateLines[1].noOfPieces}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="GrossWt." size="5"  th:field="*{rateLines[1].grossWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="GrossWtUnit" size="5"  th:field="*{rateLines[1].grossWeightUnit}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="RateClass" size="5"  th:field="*{rateLines[1].rateClassCode}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="CommodityItemNo" size="5"  th:field="*{rateLines[1].commodityItemNumber}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="ChargableWt." size="5"  th:field="*{rateLines[1].chargedWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="Rate/Charge" size="5"  th:field="*{rateLines[1].chargedWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="Total" size="5"  th:field="*{rateLines[1].total}"/></td>
+     			<td class="enclosed">
+     				<table width="100%">
+     					<tr><td><input type="text" placeholder="NatureGoods" size="20" th:field="*{rateLines[1].natureOfGoods}"/></td></tr>
+     					<tr><td>
+							<input type="text" placeholder="Width" size="5" th:field="*{rateLines[1].dimensions[0].width}"/>
+							<input type="text" placeholder="Length" size="5" th:field="*{rateLines[1].dimensions[0].length}"/>
+							<input type="text" placeholder="Height" size="5" th:field="*{rateLines[1].dimensions[0].height}"/>
+							<input type="text" placeholder="Unit" size="10" th:field="*{rateLines[1].dimensions[0].unit}"/>
+						</td></tr>
+						<tr><td>
+							<input type="text" placeholder="Pieces" size="5" th:field="*{rateLines[1].dimensions[0].noOfPieces}"/>
+							<input type="text" placeholder="Weight" size="5" th:field="*{rateLines[1].dimensions[0].weight}"/>
+							<input type="text" placeholder="WtUnit" size="5" th:field="*{rateLines[1].dimensions[0].weightUnit}"/>
+						</td></tr>
+					</table>
+     			</td>
+     		</tr>
+      		<tr height="30">
+     			<td class="enclosed"><input type="text" placeholder="TotalPcs" size="5" th:field="*{rateLines[2].noOfPieces}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="GrossWt." size="5"  th:field="*{rateLines[2].grossWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="GrossWtUnit" size="5"  th:field="*{rateLines[2].grossWeightUnit}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="RateClass" size="5"  th:field="*{rateLines[2].rateClassCode}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="CommodityItemNo" size="5"  th:field="*{rateLines[2].commodityItemNumber}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="ChargableWt." size="5"  th:field="*{rateLines[2].chargedWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="Rate/Charge" size="5"  th:field="*{rateLines[2].chargedWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="Total" size="5"  th:field="*{rateLines[2].total}"/></td>
+     			<td class="enclosed">
+     				<table width="100%">
+     					<tr><td><input type="text" placeholder="NatureGoods" size="20" th:field="*{rateLines[2].natureOfGoods}"/></td></tr>
+     					<tr><td>
+							<input type="text" placeholder="Width" size="5" th:field="*{rateLines[2].dimensions[0].width}"/>
+							<input type="text" placeholder="Length" size="5" th:field="*{rateLines[2].dimensions[0].length}"/>
+							<input type="text" placeholder="Height" size="5" th:field="*{rateLines[2].dimensions[0].height}"/>
+							<input type="text" placeholder="Unit" size="10" th:field="*{rateLines[2].dimensions[0].unit}"/>
+						</td></tr>
+						<tr><td>
+							<input type="text" placeholder="Pieces" size="5" th:field="*{rateLines[2].dimensions[0].noOfPieces}"/>
+							<input type="text" placeholder="Weight" size="5" th:field="*{rateLines[2].dimensions[0].weight}"/>
+							<input type="text" placeholder="WtUnit" size="5" th:field="*{rateLines[2].dimensions[0].weightUnit}"/>
+						</td></tr>
+					</table>
+     			</td>
+     		</tr>
+     		<tr height="30">
+     			<td class="enclosed"><input type="text" placeholder="TotalPcs" size="5" th:field="*{rateLines[3].noOfPieces}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="GrossWt." size="5"  th:field="*{rateLines[3].grossWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="GrossWtUnit" size="5"  th:field="*{rateLines[3].grossWeightUnit}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="RateClass" size="5"  th:field="*{rateLines[3].rateClassCode}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="CommodityItemNo" size="5"  th:field="*{rateLines[3].commodityItemNumber}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="ChargableWt." size="5"  th:field="*{rateLines[3].chargedWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="Rate/Charge" size="5"  th:field="*{rateLines[3].chargedWeight}"/></td>
+     			<td class="enclosed"><input type="text" placeholder="Total" size="5"  th:field="*{rateLines[3].total}"/></td>
+     			<td class="enclosed">
+     				<table width="100%">
+     					<tr><td><input type="text" placeholder="NatureGoods" size="20" th:field="*{rateLines[3].natureOfGoods}"/></td></tr>
+     					<tr><td>
+							<input type="text" placeholder="Width" size="5" th:field="*{rateLines[3].dimensions[0].width}"/>
+							<input type="text" placeholder="Length" size="5" th:field="*{rateLines[3].dimensions[0].length}"/>
+							<input type="text" placeholder="Height" size="5" th:field="*{rateLines[3].dimensions[0].height}"/>
+							<input type="text" placeholder="Unit" size="10" th:field="*{rateLines[3].dimensions[0].unit}"/>
+						</td></tr>
+						<tr><td>
+							<input type="text" placeholder="Pieces" size="5" th:field="*{rateLines[3].dimensions[0].noOfPieces}"/>
+							<input type="text" placeholder="Weight" size="5" th:field="*{rateLines[3].dimensions[0].weight}"/>
+							<input type="text" placeholder="WtUnit" size="5" th:field="*{rateLines[3].dimensions[0].weightUnit}"/>
+						</td></tr>
+					</table>
+     			</td>
+     		</tr>
+			 -->
+
+     		<th><input type="text" placeholder="TotalPcs" id="totalpieces" size="5" th:field="*{totalPieces}"/></th><th><input type="text" placeholder="TotalWt" size="5" th:field="*{totalGrossWeight}"/></th><th class="norightline"></th><th class="norightline"></th><th class="norightline"></th><th class="norightline"></th><th></th><th><input type="text" placeholder="Total" size="5" th:field="*{totalChargeAmount}"/></th><th></th>
+  	</table>
+	<!-- RATE LINE COMPLETED-->
+
+	<!-- Summary Started Row 6 -->
+     <table  width="100%" class="enclosed">
+     	<tr height="100">
+     		<td class="enclosedtd" width="50%" >
+				<table width="100%">
+					<tr height="32"><td width="50%" class="bottomrightline"><label for="wtchargesprepaid">WT charge Prepaid</label><input type="text" id="wtchargesprepaid" placeholder="WtCharge" size="20" th:field="*{weightChargeWV}" onchange="countPrepaid()"/></td><td class="bottomonly"><label for="wtchargescollect">WT charge Collect</label><input type="text" id="wtchargescollect" placeholder="WtCharge" size="20" th:field="*{weightChargeWV}" onchange="countCollect()"/></td></tr>
+					<tr height="32"><td class="bottomrightline">Val charge Prepaid<input type="text" id="valchargeprepaid" placeholder="ValCharge" size="20" th:field="*{valueChargeWV}" onchange="countPrepaid()"/></td><td class="bottomonly">Val Charge Collect<input type="text" placeholder="ValuationCharge" size="20" th:field="*{valueChargeWV}" id="valchargescollect" onchange="countCollect()"/></td></tr>
+					<tr height="32"><td class="rightonly">Tax Prepaid<input type="text" id="taxprepaid" placeholder="Tax" size="25" th:field="*{taxWV}" onchange="countPrepaid()"/></td><td>Tax Collect<input type="text" placeholder="Tax" size="25" th:field="*{taxWV}" id="taxchargescollect" onchange="countCollect()"/></td></tr>
+				</table>
+     		</td>
+     		<td>
+			<table width="100%">
+				<tr heigh="30"><td>Other Charges</td></tr>
+			</table>
+			<table width="100%">
+				<tr height="30" th:each="otherCarges,rowStat : *{otherCargesList}"> 
+					<td>Code<input type="text" placeholder="Code" size="5"  th:field="*{otherCargesList[__${rowStat.index}__].totalOtherChargesCode}"/></td><td>Amount<input type="text" placeholder="Amount" size="5" th:field="*{otherCargesList[__${rowStat.index}__].totalOtherChargesAmount}"/></td>
+				</tr>
+				<!--  
+					<td>Code<input type="text" placeholder="Code" size="5"  th:field="*{otherCarges[__${rowStat.index}__].totalOtherChargesCode}"/></td><td>Amount<input type="text" placeholder="Amount" size="5" th:field="*{otherCarges[__${rowStat.index}__].TotalOtherChargesAmount}"/></td>
+					<td>Code<input type="text" placeholder="Code" size="5"  th:field="*{otherCarges[__${rowStat.index}__].totalOtherChargesCode}"/></td><td>Amount<input type="text" placeholder="Amount" size="5" th:field="*{otherCarges[__${rowStat.index}__].TotalOtherChargesAmount}"/></td>
+			 	</tr>
+				<tr  height="30">
+					<td>Code<input type="text" placeholder="Code" size="5"  th:field="*{otherCarges[__${rowStat.index}__].totalOtherChargesCode}"/></td><td>Amount<input type="text" placeholder="Amount" size="5" th:field="*{otherCarges[__${rowStat.index}__].TotalOtherChargesAmount}"/></td>
+					<td>Code<input type="text" placeholder="Code" size="5"  th:field="*{otherCarges[__${rowStat.index}__].totalOtherChargesCode}"/></td><td>Amount<input type="text" placeholder="Amount" size="5" th:field="*{otherCarges[__${rowStat.index}__].TotalOtherChargesAmount}"/></td>
+		 		</tr>
+				<tr  height="30">
+					<td>Code<input type="text" placeholder="Code" size="5"  th:field="*{otherCarges[__${rowStat.index}__].totalOtherChargesCode}"/></td><td>Amount<input type="text" placeholder="Amount" size="5" th:field="*{otherCarges[__${rowStat.index}__].TotalOtherChargesAmount}"/></td>
+					<td>Code<input type="text" placeholder="Code" size="5"  th:field="*{otherCarges[__${rowStat.index}__].totalOtherChargesCode}"/></td><td>Amount<input type="text" placeholder="Amount" size="5" th:field="*{otherCarges[__${rowStat.index}__].TotalOtherChargesAmount}"/></td>
+		 		</tr>
+				-->
+			</table>
+     	</td></tr>
+     <!-- ROW 6 Completed -->
+
+	<!-- ROW 7 start -->
+
+       <tr height="100">
+       		<td width="50%" class="enclosedtd">
+				<table width="100%">
+					<tr height="36"><td width="50%" class="bottomrightline">Total Prepaid Oth. Chg. Due Agent<input id="totalppdothchrgagt" type="text" placeholder="OC Due Agt" size="10" th:field="*{totalchargeDueAgentOC}" onchange="countPrepaid()"/></td><td class="bottomonly">Total Collect Oth.Chg. Due Agent<input type="text" id="totalchargeDueAgentOC" placeholder="OC Due Agt" size="10" th:field="*{totalchargeDueAgentOC}" onchange="countCollect()"/></td></tr>
+					<tr height="36"><td class="bottomrightline">Total Prepaid Oth. Chg. Due Carrier<input id="totalppdothchrgcarr" type="text" placeholder="OC Due Carr" size="10" th:field="*{totalChargeDureCarrierOC}" onchange="countPrepaid()"/></td><td class="bottomonly">Total Collect Oth.Chg. Due Carrier<input type="text" id="totalChargeDureCarrierOC" placeholder="OC Due Carr" size="10" th:field="*{totalChargeDureCarrierOC}" onchange="countCollect()"/></td></tr>
+					<tr height="36"><td class="rightonly  greycol"></td><td class="greycol"></td></tr>
+				</table>
+     		</td>
+
+       		<td>
+       			<table width="100%">
+       				<tr height="80">
+       					<td class="toplineonly">Shipper certifies that the particulars on the face hereof are correct and that insofar as any part of the consignment
+							contains dangerous goods, such part is property decribed by name and is in proper condition for carriage by air
+							according to the applicable Dangerous Goods Regulations.
+						</td>
+					</tr>
+					<tr height="30"><td><label for="signature"><em>*</em>Signature of Shipper or his Agent</label><input type="text" id="signature" required="required" placeholder="Name of Agent" size="20" th:field="*{agent.customerName}"/></td></tr>
+				</table>
+			</td>
+		</tr>
+
+	<!-- ROW 7 Completed -->
+
+	<!-- ROW 8 Start -->
+
+       <tr height="80">
+       		<td width="50%" class="enclosedtd">
+			   <table width="100%">
+					<tr height="40"><td width="50%" class="bottomrightline"><label for="totalprepaid"><em>*</em>Total Prepaid</label><input type="text" id="totalprepaid" placeholder="TotalPrepaid" size="30" th:field="*{totalPrepaid}"/></td><td><label for="totalcollect"><em>*</em>Total Collect</label><input type="text" id="totalcollect" placeholder="TotalCollect" size="30" th:field="*{totalCollect}"/></td></tr>
+					<tr height="40"><td class="rightonly greycol">Currency Conversion Rates<input class="greycol" type="text" placeholder="ExchangeRate" size="20" th:field="*{destinationCurrencyConverionRate}"/></td><td class="toplineonly greycol">CC Charges in Dest Currency<input class="greycol" type="text" placeholder="CC Charges in DestCurr." size="20" th:field="*{chargeCollectInDestinationCurrency}"/></td></tr>
+				</table>
+      		</td>
+      		<td class="enclosedtd">
+      			<table  width="100%">
+      				<tr height="50"><td><input type="text" placeholder="Executed Date" size="20"/><input type="text" placeholder="Place" size="20"/><input type="text" placeholder="Signature" size="20"/></td></tr>
+      				<tr height="30"><td>Executed on (date) at (place) Signature of Issuing Carrier or its Agent</td></tr>
+      			</table>
+      		</td>
+      	</tr>
+	<!-- ROW 8 Completed -->
+	</table>
+	<!-- ROW 9 Starting -->
+	<table width="100%">
+ 	<tr height="30">
+ 		<td class="enclosed greycol" width="25%">For Carrier Use only at Destination <input class="greycol" type="text" placeholder="CarrierUse" size="20" /></td>
+		<td class="enclosed greycol" width="25%">Charges At Destination<input class="greycol" type="text"  size="20"/></td>
+		<td class="enclosed greycol" width="25%">Total Collect Charges<input class="greycol" type="text"  size="20"/></td>
+		<td align="center" width="25%" class="awbheader enclosed"><label id="awbtitle3"  th:text="*{aWBString}"/></td>
+ 	</tr>
+	<!-- ROW 9 Completed -->
+
+    </table>
+
+<table width="100%" class="enclosed">
+           <tr height="30"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+           <tr height="30">
+           		<td class="greycol"><button  type="submit" name="hawb"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">Capture HAWB</button></td>
+           		<td class="greycol"><button  type="submit" name="message"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">View/Send Message</button></td>
+           		<td class="greycol"><button  type="submit" name="printawb"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">Print AWB</button></td>
+           		<td class="greycol"><button  type="submit" name="printlabel"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">Print Label</button></td>
+           		<td class="greycol"><button  type="submit" name="delete"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)" formnovalidate="formnovalidate">Delete AWB</button></td>
+           		<td class="greycol"><button  type="submit" name="save"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">Save AWB</button></td>
+           		<td class="greycol"><button  type="submit" name="prefil"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)" formnovalidate="formnovalidate">Sample Data</button></td>
+           		<td class="greycol"><button  type="submit" name="shownew"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)" formnovalidate="formnovalidate">Cancel</button></td>
+           </tr>
+</table>
+    </div>
+<script>    $('input[placeholder], textarea[placeholder]').placeholder();</script>
+<input type="hidden" th:field="*{awbId}"/>
+</form>
+  </body>
+</html>

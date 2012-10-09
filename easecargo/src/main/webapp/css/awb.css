@@ -1,0 +1,239 @@
+
+html {
+  background-color: #f0f0f0;
+}
+
+body {
+  font-family: 'DejaVu Sans', Arial, Helvetica;
+  font-size: 10px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  margin: 0px auto; 
+  padding: 20px 20px; 
+  width: 850px;
+}
+
+h2 {
+  margin-top: 5px;
+  margin-bottom: 30px;
+}
+
+h4 {	
+	color:blue;
+}
+
+
+button {
+   font-size:11px;
+   font-family:Tahoma,sans-serif;
+   color:#2878C0;
+   height:18px;
+   background-color:#FFFFFF;
+   border-top-style:solid;
+   border-top-color:#2878C0;
+   border-top-width:1px;
+   border-bottom-style:solid;
+   border-bottom-color:#2878C0;
+   border-bottom-width:1px;
+   border-left-style:solid;
+   border-left-color:#2878C0;
+   border-left-width:10px;
+   border-right-style:solid;
+   border-right-color:#2878C0;
+   border-right-width:1px;
+} 
+
+
+
+form div.submit button {
+  font-weight: bold;
+  font-variant: small-caps;
+}
+ 
+ 
+
+.enclosed {
+border: 1px solid grey;
+}
+
+.enclosedtd  {
+
+border: 1px solid grey;
+}
+
+ .breadcrumbs{
+   font-family: 'DejaVu Sans', Arial, Helvetica;
+   font-size: 10px;
+   font-color: lightgrey;
+   font-weight:normal;
+}
+ 
+ 
+.toprightbottomonly {
+   border: 1px solid grey;
+   border-bottom-color: grey;
+   border-left-color: white;
+   border-right-color: grey;
+   border-top-color: grey;
+}
+
+.toplineonly {
+   border-top-color: grey;
+   border-top-width:1px;
+   border-top-style:solid;
+}
+
+.leftrightlineonly {
+      border-left-color: grey;
+      border-left-width:1px;
+      border-left-style:solid;
+      border-right-color: grey;
+      border-right-width:1px;
+      border-right-style:solid;
+}
+
+.leftlineonly {
+      border-left-color: grey;
+      border-left-width:1px;
+      border-left-style:solid;
+}
+
+.lefttoponly {
+      border-left-color: grey;
+      border-left-width:1px;
+      border-left-style:solid;
+      border-top-color: grey;
+      border-top-width:1px;
+      border-top-style:solid;
+}
+
+.toprightonly {
+      border-right-color: grey;
+      border-right-width:1px;
+      border-right-style:solid;
+      border-top-color: grey;
+      border-top-width:1px;
+      border-top-style:solid;
+}
+
+.norightline {
+   border: 1px solid grey;
+   border-bottom-color: grey;
+   border-left-color: grey;
+   border-right-color: white;
+   border-top-color: grey;
+}
+
+.bottomrightline {
+   border: 1px solid grey;
+   border-bottom-color: grey;
+   border-left-color: white;
+   border-right-color: grey;
+   border-top-color: white;
+}
+
+.bottomonly {
+      border-bottom-color: grey;
+      border-bottom-width:1px;
+      border-bottom-style:solid;
+}
+
+.rightonly {
+   border: 1px solid grey;
+   border-bottom-color: white;
+   border-left-color: white;
+   border-right-color: grey;
+   border-top-color: white;
+}
+
+
+ .button {
+     border: 1px solid #006;
+     background: lightgrey;
+     color: black;
+ }
+ 
+ 
+
+
+
+table
+{
+border-collapse:collapse;
+width="100%";
+}
+
+td{
+
+padding:0px;
+
+}
+
+th
+{
+	border: 1px solid grey;
+color:black;
+font-weight: normal;
+background: lightgrey;
+}
+
+
+.shipperlabeltable{
+   border: 0px solid grey;
+   border-bottom-color: white;
+   border-left-color: white;
+   border-right-color: white;
+   width: 100%;
+}
+
+.greycol{
+   background: lightgrey;
+}
+
+.awbheader {
+   font-family: 'DejaVu Sans', Arial, Helvetica;
+   font-size: 20px;
+   color: blue;
+}
+
+input {
+	font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	border: 0px solid grey;
+	color: blue;
+}
+
+.visibletxtbox{
+	font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	border: 1px solid lightgrey;
+	color: blue;
+}
+
+
+em{
+color: red;
+font-weight:strong;
+font-size: 14px;
+}
+
+
+
+input:invalid, input:focus:invalid { 
+	/* when a field is considered invalid by the browser */    
+	background: #fff url(../images/invalid.png) no-repeat 98% center;
+	 
+} 
+
+input:focus:valid { 
+		/* when a field is considered valid by the browser */    
+		background: #fff url(../images/valid.png) no-repeat 98% center;    
+		 
+} 
+
+.warningcaption{
+color: red;
+font-weight:normal;
+font-size: 10px;
+}
+

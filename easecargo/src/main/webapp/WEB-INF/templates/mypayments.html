@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>AWB</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/awb.css" th:href="@{/css/awb.css}"/>
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/memu.css" th:href="@{/css/memu.css}"/>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/jquery.placeholder.js"></script>
+    <style>
+    	 .placeholder {color: #aaa;}
+    	 input:-moz-placeholder { color:#aaa; }
+    </style>
+
+<script language="javascript">
+
+function goLite(FRM,BTN)
+{
+    window.document.forms[FRM].elements[BTN].style.backgroundColor = "#EEDDFF";
+}
+
+function goDim(FRM,BTN)
+{
+   window.document.forms[FRM].elements[BTN].style.backgroundColor = "#FFFFFF";
+}
+
+</script>
+
+  </head>
+
+  <body>
+
+    <div>
+      <img src="../../images/title.png" alt="eCargo logo" title="title logo"
+           th:src="@{/images/title.png}" th:alt-title="#{title.application}"/>
+    </div>
+
+	<!--  Menu -->
+ 	<table width="100%"><tr><td class="greycol">
+		<div >
+
+		<ul class="memu">
+						<li class="memu-root">
+							<a href="#">Airway Bill</a>
+							<ul>
+								<li><a href="/awb/awb"><div></div>AWB</a></li>
+								<li><a href="/awb/hawb"><div></div>HAWB</a></li>
+							</ul>
+						</li>
+						<li class="memu-root">
+							<a href="#">Messages</a>
+							<ul>
+								<li><a href="/awb/message"><div></div>View/Send Message</a></li>
+							</ul>
+						</li>
+				<li class="memu-root">
+					<a href="#">My EaseCargo</a>
+					<ul>
+						<li><a href="/awb/myprofile"><div></div>My Profile</a></li>
+						<li><a href="/awb/myaccount"><div></div>My Account</a></li>
+						<li><a href="/awb/myawbs"><div></div>My AWBs</a></li>
+						<li><a href="/awb/mymessages"><div></div>My Messages</a></li>
+						<li><a href="/awb/mybillings"><div></div>My Billing</a></li>
+						<li><a href="/awb/mycustomers"><div></div>My Customers</a></li>
+					</ul>
+				</li>
+						<li class="memu-root">
+							<a href="#">Admin</a>
+							<ul>
+								<li><a href="#"><div></div>Manage Users</a></li>
+								<li><a href="#"><div></div>Manage Accounts</a></li>
+								<li class="has-children">
+										<a href="#"><div></div>Masters</a>
+										<ul>
+											<li><a href="/awb/codemaster"><div></div>Manage Codes</a></li>
+											<li><a href="/awb/citymaster"><div></div>Manage City/Airport</a></li>
+											<li><a href="/awb/currencymaster"><div></div>Manage Currency</a></li>
+										</ul>
+								</li>
+							</ul>
+						</li>
+				</ul>
+		</div>
+		</td></tr>
+	</table>
+		<!--  Bread Crumbs -->
+		<br/>
+	<div class="breadcrumbs">
+	easycargo > awb > capture hawb
+	</div>
+	<br/>
+	<form name="hawbform" action="#" th:action="@{/hawb}" th:object="${hawb}" method="post">
+   <!-- Search Panel -->
+	<table  width="100%" class="enclosed">
+	        <tr height="50" >
+				<td align="center">Month<input type="text" placeholder="Shipper"/></td>
+	        	<td align="center">
+	        		<button type="submit" name="viewHAWB" onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">View Payments</button>
+	        	</td>
+	        </tr>
+	</table>
+	<!--  List Panel -->
+	    <div >
+	      <h4 >List of Payments</h4>
+
+	      <table width="100%" class="enclosed">
+	        <thead>
+	          <tr class="hawbheader">
+	            <th>Date</th>
+	            <th>Currency</th>
+	            <th>Amount</th>
+	            <th>Status</th>
+	            <th>Total Credit</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <tr>
+	            <td class="enclosed" align="center">12/09/2012</td>
+	            <td class="enclosed" align="center">USD</td>
+	            <td class="enclosed" align="center">100</td>
+	            <td class="enclosed" align="center">SUCESS</td>
+	            <td class="enclosed" align="center">122</td>
+	          </tr>
+	        </tbody>
+	      </table>
+
+	    </div>
+	<br/>
+
+
+		<table width="100%" class="enclosed" >
+		           <tr height="30"><td></td><td></td></tr>
+		           <tr height="30">
+	               		<td class="greycol"><button  type="submit" name="shownew"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">Cancel</button></td>
+		           </tr>
+		</table>
+		<script>    $('input[placeholder], textarea[placeholder]').placeholder();</script>
+		</form>
+  </body>
+</html>

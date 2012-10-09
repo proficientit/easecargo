@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <title>AWB</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/awb.css" th:href="@{/css/awb.css}"/>
+    <link rel="stylesheet" type="text/css" media="all" href="../../css/memu.css" th:href="@{/css/memu.css}"/>
+
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/jquery.placeholder.js"></script>
+    <style>
+    	 .placeholder {color: #aaa;}
+    	 input:-moz-placeholder { color:#aaa; }
+    </style>
+
+<script language="javascript">
+
+function goLite(FRM,BTN)
+{
+    window.document.forms[FRM].elements[BTN].style.backgroundColor = "#EEDDFF";
+}
+
+function goDim(FRM,BTN)
+{
+   window.document.forms[FRM].elements[BTN].style.backgroundColor = "#FFFFFF";
+}
+
+</script>
+
+  </head>
+
+  <body>
+
+    <div>
+      <img src="../../images/title.png" alt="eCargo logo" title="title logo"
+           th:src="@{/images/title.png}" th:alt-title="#{title.application}"/>
+    </div>
+	
+	<!--  Menu -->
+ 	<table width="100%"><tr><td class="greycol">
+		<div >
+
+		<ul class="memu">
+						<li class="memu-root">
+							<a href="#">Airway Bill</a>
+							<ul>
+								<li><a href="/awb/awb"><div></div>AWB</a></li>
+								<li><a href="/awb/hawb"><div></div>HAWB</a></li>
+							</ul>
+						</li>
+						<li class="memu-root">
+							<a href="#">Messages</a>
+							<ul>
+								<li><a href="/awb/message"><div></div>View/Send Message</a></li>
+							</ul>
+						</li>
+				<li class="memu-root">
+					<a href="#">My EaseCargo</a>
+					<ul>
+						<li><a href="/awb/myprofile"><div></div>My Profile</a></li>
+						<li><a href="/awb/myaccount"><div></div>My Account</a></li>
+						<li><a href="/awb/myawbs"><div></div>My AWBs</a></li>
+						<li><a href="/awb/mymessages"><div></div>My Messages</a></li>
+						<li><a href="/awb/mybillings"><div></div>My Billing</a></li>
+						<li><a href="/awb/mycustomers"><div></div>My Customers</a></li>
+					</ul>
+				</li>
+						<li class="memu-root">
+							<a href="#">Admin</a>
+							<ul>
+								<li><a href="#"><div></div>Manage Users</a></li>
+								<li><a href="#"><div></div>Manage Accounts</a></li>
+								<li class="has-children">
+										<a href="#"><div></div>Masters</a>
+										<ul>
+											<li><a href="/awb/codemaster"><div></div>Manage Codes</a></li>
+											<li><a href="/awb/citymaster"><div></div>Manage City/Airport</a></li>
+											<li><a href="/awb/currencymaster"><div></div>Manage Currency</a></li>
+										</ul>
+								</li>
+							</ul>
+						</li>
+				</ul>
+		</div>
+		</td></tr>
+	</table>
+	
+		<!--  Bread Crumbs -->
+		<br/>
+	<div class="breadcrumbs">
+	easycargo > awb > capture hawb
+	</div>
+	<br/>
+	<form name="hawbform" action="#" th:action="@{/hawb}" th:object="${hawb}"  method="post">
+   <!-- Search Panel -->
+	<table  width="100%" class="enclosed">
+	        <tr height="50" class="awbheader" >
+	        	<td align="center"><label th:text="*{awbPrefix} + ' - ' + *{awbNumber}">123</label></td>
+	        	<td align="center"><label th:text="*{totalPieces}">12312323 </label>Pcs</td>
+	        	<td align="center"><label th:text="*{totalGrossWeight}"> 2</label>Kg</td>
+	        	<td align="center">
+	        		<input type="text" placeholder="AWB Prefix" th:field="*{awbPrefix}"/>
+	        		<input type="text" placeholder="AWB Number" th:field="*{awbNumber}"/>
+	        		<button type="submit" name="viewHAWB" onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">View HAWBs</button>
+	        	</td>
+	        </tr>
+	</table>
+	<!--  List Panel -->
+	    <div >
+	      <h4 >List of HAWBs</h4>
+
+	      <table width="100%">
+	        <thead>
+	          <tr class="hawbheader">
+	            <th >HAWB Number </th>
+	            <th >Peices/Weight/Volume</th>
+	            <th >Nature of Goods</th>
+	            <th>Shippers Name</th>
+	            <th>Consignee Name</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <tr th:each="hawbs : ${hawbsForAWB}">
+	            <td class="enclosed" align="center" th:text="${hawbs.hawbNum}" >1234567</td>
+	            <td class="enclosed" align="center"  th:text="${hawbs.pieces} + '/' + ${hawbs.weight} + '/'+ ${hawbs.volume}">2/30/22</td>
+	            <td class="enclosed" align="center"  th:text="${hawbs.natureOfGoods}">Cloths Sample</td>
+	            <td class="enclosed" align="center"  th:text="${hawbs.shipper.customerName}">Fashion, Madrid</td>
+	            <td class="enclosed" align="center" th:text="${hawbs.consignee.customerName}">Wild Mart, Toronto</td>
+	          </tr>
+	        </tbody>
+	      </table>
+
+	    </div>
+	 <br/>
+	 	<h4 >HAWB Details</h4>
+ <!-- full table - enclosed -->
+	<table class="enclosed">
+
+		<!-- ROW number 1 -->
+        <tr height="100"> <td width="50%" class="enclosedtd">
+			<table width="100%" >
+					<!-- Shipper Name and Address -->
+  					<tr height="30"><td>
+  			  			<table class="shipperlabeltable">
+  			  				<tr height="30"><td>Shipper Name and Address</td><td align="right"  class="leftlineonly bottomonly">Account Number<input type="text" placeholder="Account Number" th:field="*{shipper.accountNumber}"/></td></tr>
+  			  			</table>
+  			  		</td></tr>
+  			  		<tr height="80"><td >
+  			  					<table  width="100%">
+  			  						<tr><td width="50%" align="right"><label for="shipper"><em>*</em>Name</label><input type="text" id="shipper" required="required" placeholder="Shipper Name" th:field="*{shipper.customerName}" size="25"/></td><td  align="right">Tel.No<input type="text" placeholder="Telephone" th:field="*{shipper.phoneNumber}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right">Contact<input type="text" placeholder="Contact Name" th:field="*{shipper.contactName}" size="25"/></td><td  align="right"><label for="pobox"><em>*</em>POBox</label><input type="text" id="pobox" required="required" placeholder="PoBox" th:field="*{shipper.poBox}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right"><label for="address"><em>*</em>Address</label><input id="address" type="text" required="required" placeholder="Address line" th:field="*{shipper.address}" size="25"/></td><td  align="right"><label for="country"><em>*</em>Country</label><input type="text" id="country" required="required" placeholder="Code or Name" th:field="*{shipper.countryName}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right"><label for="city"><em>*</em>City</label><input type="text" id="city" required="required" placeholder="Code or Name" th:field="*{shipper.cityName}" size="25"/></td><td  align="right">Email<input type="email" placeholder="Email" th:field="*{shipper.email}" size="25"/></td></tr>
+  			  					</table>
+  			  		</td></tr>
+  			</table>
+        </td>
+        <td class="enclosedtd">
+        	<table width="100%">
+        		<tr height="80"><td>
+        				<table width="100%"><tr height="80">
+        				   <td width="50%">
+        				   		<table width="100%">
+        				   			<tr height="10"><td><h3>House Air Waybill</h3></td></tr>
+        				   			<tr height="40"><td><em>*</em><input type="text" id="hawbnumber" required="required" placeholder="HAWBNumber" th:field="*{hawbNum}"  size="10"/><button type="submit" name="query" onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">Template</button></td></tr>
+        				   		</table>
+        				   </td>
+
+        				</tr></table>
+        		</td></tr>
+        		<tr height="36"><td class="toplineonly">Copies 1, 2 and 3 of this Air Waybill are originals and have the same validity.</td></tr>
+        	</table>
+        </td></tr>
+        <!-- Row 1 completed -->
+
+		<!-- ROW number 2 -->
+        <tr height="100"> <td width="50%" class="enclosedtd">
+			<table width="100%" >
+					<!-- Shipper Name and Address -->
+  					<tr height="30"><td>
+  			  			<table class="shipperlabeltable">
+  			  				<tr height="30"><td>Consignee Name and Address</td><td align="right" class="greycol leftlineonly bottomonly">Account Number<input class="greycol"  placeholder="Account Number" type="text" th:field="*{consignee.accountNumber}"/></td></tr>
+  			  			</table>
+  			  		</td></tr>
+  			  		<!-- AWB Header on the left right corner -->
+  			  		<tr height="80"><td>
+  			  					<table  width="100%">
+  			  						<tr><td width="50%" align="right"><label for="consignee"><em>*</em>Name</label><input type="text" id="consignee" required="required" placeholder="Consignee Name" th:field="*{consignee.customerName}" size="25"/></td><td  align="right">Tel.No<input type="text" placeholder="Telephone" th:field="*{consignee.phoneNumber}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right">Contact<input type="text" placeholder="Contact Name" th:field="*{consignee.contactName}" size="25"/></td><td  align="right"><label for="conigneepobox"><em>*</em>POBox</label><input type="text" id="consigneepobox" required="required" placeholder="PoBox" th:field="*{consignee.poBox}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right"><label for="consigneeaddress"><em>*</em>Address</label><input type="text" id="consigneeaddress" required="required" placeholder="Address Line" th:field="*{consignee.address}" size="25"/></td><td  align="right"><label for="consigneecountry"><em>*</em>Country</label><input type="text" id="cosigneecountry" required="required" placeholder="Code or Name" th:field="*{consignee.countryName}" size="25"/></td></tr>
+  			  						<tr><td width="50%" align="right"><label for="consigneecity"><em>*</em>City</label><input type="text" id="consigneecity" required="required" placeholder="Code or Name" th:field="*{consignee.cityName}" size="25"/></td><td  align="right">Email<input type="email" placeholder="Email" th:field="*{consignee.email}" size="25"/></td></tr>
+  			  					</table>
+  			  		</td></tr>
+  			</table>
+        </td>
+        <td class="enclosedtd">
+        	<table height="100" width="100%">
+        		<tr >
+        			<td>
+        				<table><tr class="bottomonly">
+        					<td >Peices<input type="text" placeholder="Peices" th:field="*{pieces}" /></td>
+        					<td  >Weight<input type="text" placeholder="Weight" th:field="*{weight}" /></td>
+        					<td >Volume<input type="text" placeholder="Volume" th:field="*{volume}" /></td>
+        				</tr></table>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>
+        				<table><tr>
+        					<td>Dimension L<input type="text" placeholder="L"  th:field="*{length}" size="5"/>W<input type="text" placeholder="W" th:field="*{width}" size="5"/>H<input type="text" placeholder="H" th:field="*{height}" size="5"/></td>
+        					<td>Unit<input type="text" placeholder="Unit" th:field="*{dimensionUnit}" /></td>
+        				</tr></table>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>
+        				<table><tr>
+        					<td>Nature of Goods<input type="text" placeholder="Nature of Goods"  th:field="*{natureOfGoods}"/></td>
+        				</tr></table>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>
+        				<table><tr>
+        					<td>HarmonizedCode<input type="text" placeholder="HarmonizedCode" th:field="*{harmonizedCode}" size="10"/></td>
+        					<td>OCIInfo<input type="text" placeholder="OCIInformation"  th:field="*{ociInfo}" size="30"/></td>
+        				</tr></table>
+        			</td>
+        		</tr>
+        		<tr>
+        			<td>
+        				<table><tr >
+        					<td class="toprightonly">Currency<input type="text" placeholder="Currency"   th:field="*{currency}" size="3"/></td>
+        					<td class="toprightonly">CHRG<input type="text" placeholder="CHRG"  th:field="*{charge}"  size="3"/></td>
+        					<td class="toprightonly">Dcl.Val.Carriage<input type="text" placeholder="Dcl.Val.Carriage"  th:field="*{declaredValueCarrier}"  size="10"/></td>
+        					<td class="toprightonly">Dcl.Val.Customs<input type="text" placeholder="Dcl.Val.Customs"  th:field="*{declaredValueCustomer}"  size="10"/></td>
+        					<td class="toplineonly">Insurance<input type="text" placeholder="Insurance"  th:field="*{insuredAmount}"  size="10"/></td>
+        				</tr></table>
+        			</td>
+        		</tr>
+        	</table>
+        </td></tr>
+        <!-- Row 2 completed -->
+
+
+
+		<!-- Row 3 Start -->
+        <tr height="80">
+        	<td width="50%" class="enclosedtd">
+        		<table width="100%" >
+        			<tr height="40"><td>Airport of Departure (Addr. of First Carrier) and Requested Routing<input type="text" th:field="*{departureAirportCode}" placeholder="Airport" /></td></tr>
+
+        			<tr height="40"><td>
+        				<table width="100%">
+        					<tr height="40">
+        						<td class="toprightonly">Airport of Destination<input type="text"  th:field="*{destinationAirportCode}" placeholder="Airport" /></td>
+        						<td class="toprightonly">Flight Number<input type="text"  th:field="*{flightNumber}" placeholder="Flight Number" /></td>
+        						<td class="toplineonly">Flight Date<input type="date" th:field="*{flightDate}" placeholder="Date of Dep."/></td></tr>
+        				</table>
+        			</td></tr>
+        		</table>
+        	</td>
+
+        	<td class="enclosedtd">
+        		<table width="100%" >
+        			<tr height="40"><td>
+        				<table width="100%" >
+        					<tr height="40">
+        						<td>Contact Person<input type="text" placeholder="Contact Person" th:field="*{contactPerson}"/></td>
+        						<td>Contact Telephone<input type="text" placeholder="Contact Telephone" th:field="*{contactPhone}"/></td>
+        					</tr>
+        				</table></td>
+        			</tr>
+
+        			<tr height="30"><td>
+        				<table width="100%" class="toplineonly">
+        					<tr height="40">
+        						<td class="toplineonly">Remarks <input type="text" th:field="*{remarks}" placeholder="remarks" size="50" /></td>
+        					</tr>
+        				</table></td>
+        			</tr>
+        		</table>
+        	</td></tr>
+		</table>
+		<!-- Row 3 completion -->
+
+		<table width="100%" class="enclosed">
+		           <tr height="30"><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+		           <tr height="30">
+		           		<td class="greycol"><button  type="submit" name="showawb"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)"  formnovalidate="formnovalidate">View AWB</button></td>
+		           		<td class="greycol"><button  type="submit" name="message"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">View/Send FHL</button></td>
+		           		<td class="greycol"><button  type="submit" name="printhawb"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">PrintHAWB</button></td>
+		           		<td class="greycol"><button  type="submit" name="printlabel"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">PrintLabel</button></td>
+		           		<td class="greycol"><button  type="submit" name="save"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">Save HAWB</button></td>
+		           		<td class="greycol"><button  type="submit" name="modify"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">Modify AWB</button></td>
+		           		<td class="greycol"><button  type="submit" name="delete"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">Delete HAWB</button></td>
+		           		<td class="greycol"><button  type="submit" name="shownew"  onMouseOver="goLite(this.form.name,this.name)" onMouseOut="goDim(this.form.name,this.name)">Cancel</button></td>
+		           </tr>
+		</table>	
+		<script>    $('input[placeholder], textarea[placeholder]').placeholder();</script>
+		
+		<input type="hidden" th:field="*{awb.awbId}"/>
+		</form>
+  </body>
+</html>

@@ -1,0 +1,308 @@
+alter table MST_CUST drop foreign key FK_CUST_USER;
+
+alter table AWB_MAIN drop foreign key FK_AWB_USER;
+
+alter table HAWB_MAIN drop foreign key FK_HAWB_USER;
+
+alter table ACOUNT_INFO drop foreign key FK_ACOUNTINFO_AWB;
+
+alter table AWB_MAIN drop foreign key FK_AWB_SHIPPER;
+
+alter table AWB_MAIN drop foreign key FK_AWB_OTHPRTY;
+
+alter table AWB_MAIN drop foreign key FK_AWB_CONSIGNE;
+
+alter table AWB_MAIN drop foreign key FK_AWB_AGENT;
+
+alter table DIM drop foreign key FK_DIM_RATLINE;
+
+alter table HNDL_INFO drop foreign key FK_HNDLINFO_AWB;
+
+alter table OTH_CHRG drop foreign key FK_OTHCHRG_AWB;
+
+alter table RAT_LINE drop foreign key FK_RATLINE_AWB;
+
+
+alter table HAWB_MAIN drop foreign key FK_HAWB_CONSIGNE;
+
+alter table HAWB_MAIN drop foreign key FK_HAWB_SHIPPER;
+
+alter table HAWB_MAIN drop foreign key FK_HAWB_AWB;
+
+drop table if exists ACOUNT_INFO;
+
+drop table if exists AWB_MAIN;
+
+drop table if exists DIM;
+
+drop table if exists HNDL_INFO;
+
+drop table if exists MST_CUST;
+
+drop table if exists OTH_CHRG;
+
+drop table if exists RAT_LINE;
+
+drop table if exists HAWB_MAIN;
+
+drop table if exists MST_USER;
+
+create table MST_USER (
+	USER_ID integer not null auto_increment,
+	  USER_NAME varchar(255),
+	  primary key (USER_ID)
+	);
+
+create table MST_CUST (
+      MSTCUST_ID integer not null auto_increment, 
+       ACN_NUM varchar(14), 
+       ADRS_LINE varchar(35), 
+       AGT_IATA_CASS_COD integer , 
+       AGT_IATA_COD integer,
+       CTY_NAMR varchar(35), 
+       CONT_NAME varchar(35), 
+       CNTY_CODE varchar(2), 
+       CNTY_NAME varchar(35), 
+       CUS_NAME varchar(255), 
+       EMAIL varchar(50), 
+       FAX_NUM integer, 
+       phoneNumber integer, 
+       PO_BOX integer, 
+       CUS_TYP varchar(10),
+       TELEX_ADRS varchar(50), 
+       USER_ID integer not null,
+       primary key (MSTCUST_ID)
+      );
+
+ alter table MST_CUST 
+ 	add index FK_CUST_USER (USER_ID), 
+ 	add constraint FK_CUST_USER foreign key (USER_ID) 
+	references MST_USER (USER_ID);
+ 	
+ create table AWB_MAIN (
+      AWB_ID integer not null auto_increment, 
+       AWB_PRFIX INTEGER,
+       AWB_NUM INTEGER, 
+       CHARG_COD varchar(2), 
+       CHARG_AMT_DEST float, 
+       CC_CHARG_DEST float, 
+       DCL_VAL_INSURNCE varchar(20),  
+       DCL_VAL_CARRGE varchar(20),  
+       DCL_VAL_CUSTMS varchar(20),  
+       DEST_CURR_COD varchar(3), 
+       DEST_CURR_CONV_RAT float, 
+       DES_LOC_COD varchar(3), 
+       DES_LOC_NAME varchar(17), 
+       DEST_RAT_QLFYR integer, 
+       FIRST_CARR varchar(2), 
+       FLT_DAT datetime, 
+       FLT_NUM varchar(6), 
+       OPT_SHIP_INFO varchar(200), 
+       ORG_LOC_COD varchar(3), 
+       ORG_LOC_NAME varchar(17), 
+       PRD_COD varchar(1), 
+       PPD_COLL_OTH_CHG_IND varchar(10), 
+       PPD_COLL_WV_IND varchar(10), 
+       REF_NUMBER varchar(50), 
+       ROUT_APT varchar(3), 
+       ROUT_COUNTY varchar(2), 
+       SCI varchar(5), 
+       SVC_COD varchar(1), 
+       SRC_CURR_COD varchar(3), 
+       WV_TAX float, 
+       TEMPLTE_IND varchar(1), 
+       TOTAL_CHARG_AMT float, 
+       TOTAL_OTH_CHARG_DUE_CARR float, 
+       TOTAL_COLLECT float, 
+       TOTAL_COLL_CHARGES float, 
+       TOTAL_GROS_WT float, 
+       TOTAL_GROS_WT_UNT varchar(5), 
+       TOTAL_LINES integer, 
+       TOTAL_PIECES integer, 
+       TOTAL_PREPAID float, 
+       TOTAL_SHP_GROS_CNT integer, 
+       TOTAL_OTH_CHARG_DUE_AGT float, 
+       TRANSIT_BY1 varchar(2), 
+       TRANSIT_BY2 varchar(2), 
+       TRANSIT_TO1 varchar(3), 
+       TRANSIT_TO2 varchar(3), 
+       WV_VAL_CHAR float, 
+       WV_WEIGHT_CHARGE float, 
+       AGENT_ID integer, 
+       CONSIGNE_ID integer, 
+       OTHPTY_ID integer, 
+       SHIPPER_ID integer, 
+       USER_ID integer not null,
+       primary key (AWB_ID)
+      );
+      
+ alter table AWB_MAIN 
+ 	add index FK_AWB_USER (USER_ID), 
+ 	add constraint FK_AWB_USER foreign key (USER_ID) 
+	references MST_USER (USER_ID);
+	
+ alter table AWB_MAIN 
+ 	add index FK_AWB_SHIPPER (SHIPPER_ID), 
+ 	add constraint FK_AWB_SHIPPER foreign key (SHIPPER_ID) 
+	references MST_CUST (MSTCUST_ID);
+ 	
+ alter table AWB_MAIN 
+ 	add index FK_AWB_OTHPRTY (OTHPTY_ID), 
+ 	add constraint FK_AWB_OTHPRTY foreign key (OTHPTY_ID) 
+	references MST_CUST (MSTCUST_ID);
+ 	
+ alter table AWB_MAIN 
+ 	add index FK_AWB_CONSIGNE (CONSIGNE_ID), 
+ 	add constraint FK_AWB_CONSIGNE foreign key (CONSIGNE_ID) 
+	references MST_CUST (MSTCUST_ID);
+ 	
+ alter table AWB_MAIN 
+ 	add index FK_AWB_AGENT (AGENT_ID), 
+ 	add constraint FK_AWB_AGENT foreign key (AGENT_ID) 
+	references MST_CUST (MSTCUST_ID);
+
+create table ACOUNT_INFO (
+      ACT_ID integer not null auto_increment, 
+       ACOUNT_IDEN varchar(10), 
+       ACOUNT_INFO varchar(100), 
+       AWB_ID integer not null, 
+       primary key (ACT_ID)
+      );
+
+ alter table ACOUNT_INFO 
+ 	add index FK_ACOUNTINFO_AWB (AWB_ID), 
+ 	add constraint FK_ACOUNTINFO_AWB foreign key (AWB_ID) 
+	references AWB_MAIN (AWB_ID);
+ 	
+ create table HNDL_INFO (
+      HNDL_ID integer not null auto_increment, 
+       HNDL_CAT varchar(10), 
+       SVC_TYP_COD varchar(3), 
+       SVC_TYP_TXT varchar(65), 
+       AWB_ID integer not null, 
+       primary key (HNDL_ID)
+      );
+
+ alter table HNDL_INFO 
+ 	add index FK_HNDLINFO_AWB (AWB_ID), 
+ 	add constraint FK_HNDLINFO_AWB foreign key (AWB_ID) 
+	references AWB_MAIN (AWB_ID);
+
+create table OTH_CHRG (
+      OTHCHRG_ID integer not null auto_increment, 
+       CHRG_ENTITLE_CODE_PRTY varchar(2), 
+       OTH_CHRG_REASON_DESC varchar(100), 
+       TOTAL_OTH_CHRG_AMT float, 
+       TOTAL_OTH_CHRG_CODE varchar(2), 
+       AWB_ID integer not null, 
+       primary key (OTHCHRG_ID)
+      );
+
+
+ alter table OTH_CHRG 
+ 	add index FK_OTHCHRG_AWB (AWB_ID), 
+ 	add constraint FK_OTHCHRG_AWB foreign key (AWB_ID) 
+	references AWB_MAIN (AWB_ID);
+
+create table RAT_LINE (
+      RAT_LIN_ID integer not null auto_increment, 
+       CHARG_WEIGHT float, 
+       COMM_ITEM_NO varchar(7), 
+       CONV_FCTR varchar(11), 
+       GROS_WEIGHT float, 
+       GROS_WEIGHT_UNIT varchar(10), 
+       ITM_DESC varchar(100), 
+       ITM_NUM integer, 
+       NAT_GOODS varchar(20), 
+       NO_PIECES integer, 
+       RATE_CHARGE float, 
+       RAT_CLAS_COD varchar(1), 
+       RCP varchar(3), 
+       SHIP_LOD_CNT integer, 
+       TOTAL float, 
+       VOL_AMT float,  
+       AWB_ID integer not null,  
+       primary key (RAT_LIN_ID)
+      );
+
+ alter table RAT_LINE 
+ 	add index FK_RATLINE_AWB (AWB_ID), 
+ 	add constraint FK_RATLINE_AWB foreign key (AWB_ID) 
+	references AWB_MAIN (AWB_ID);
+ 	
+ create table DIM 
+       (DIM_ID integer not null auto_increment, 
+       HEIGHT float, 
+       LENGTH float, 
+       NO_OF_PEICES integer, 
+       UNIT varchar(3), 
+       WEIGHT float, 
+       WEIGHT_UNIT varchar(3), 
+       WIDTH float, 
+       RAT_LIN_ID integer not null, 
+       primary key (DIM_ID)
+      );
+
+ 	
+ alter table DIM 
+ 	add index FK_DIM_RATLINE (RAT_LIN_ID), 
+ 	add constraint FK_DIM_RATLINE foreign key (RAT_LIN_ID) 
+	references RAT_LINE (RAT_LIN_ID);
+
+
+create table HAWB_MAIN (
+       HAWB_ID integer not null auto_increment, 
+       AWB_ID integer not null,
+       CONSIGNE_ID integer, 
+       SHIPPER_ID integer, 
+       TEMP_NAME varchar(255),
+       HAWB_NUM varchar(255),
+       PIECES integer,
+       WEIGHT float,
+       VOLUME float,
+       VOL_UNT varchar(255),
+       LENGTH float,
+       WIDTH float,
+       HEIGHT float,
+       DIM_UNT varchar(255),
+       NAT_GOODs varchar(255),
+       HARMNZED_COD varchar(255),
+       OCI_INFO varchar(255),
+       CURR varchar(255),
+       CHRG varchar(255),
+       DCL_VAL_CARR float,
+       DCL_VAL_CUST float,
+       INSUR_AMT float,
+       CNT_PERSON varchar(255),
+       CNT_PHON varchar(255),
+       RMKS varchar(255),
+       DEPT_APT_NAME varchar(255),
+       DEPT_APT_CODE varchar(255),
+       DEST_APT_NAME varchar(255),
+       DEST_APT_CODE varchar(255),
+       FLT_NUMBER varchar(255),
+       FLT_DATE datetime,
+       USER_ID integer not null,
+       primary key (HAWB_ID)
+      );
+      
+ alter table HAWB_MAIN 
+ 	add index FK_HAWB_USER (USER_ID), 
+ 	add constraint FK_HAWB_USER foreign key (USER_ID) 
+	references MST_USER (USER_ID);
+	      
+alter table HAWB_MAIN 
+       add index FK_HAWB_SHIPPER (SHIPPER_ID), 
+       add constraint FK_HAWB_SHIPPER foreign key (SHIPPER_ID) 
+       references MST_CUST (MSTCUST_ID);
+       
+ alter table HAWB_MAIN 
+       add index FK_HAWB_CONSIGNE (CONSIGNE_ID), 
+       add constraint FK_HAWB_CONSIGNE foreign key (CONSIGNE_ID) 
+       references MST_CUST (MSTCUST_ID);
+       
+alter table HAWB_MAIN 
+       add index FK_HAWB_AWB (AWB_ID), 
+       add constraint FK_HAWB_AWB foreign key (AWB_ID) 
+       references AWB_MAIN (AWB_ID);
+       
