@@ -108,9 +108,11 @@ public class TestMe {
 		logger.info("Saved Customer");
 		logger.info("testCreateCustomer END");
 		logger.info("------------------------");
-		logger.info(customerService.getCustomersByUser(u.getUserId()).toString());
-		
-
+		logger.info(customerService.getCustomersByUserId(u.getUserId()).toString());
+		List<Customer> l = customerService.getCustomersByAccountAndUserId("ac", u.getUserId());
+		logger.info("--- total customer with account number like ac is ---"+l.size());
+		l=customerService.getCustomersByAWBPrefixAndUserId(157, u.getUserId());
+		logger.info("--- total customer with awbprefix 157 is ---"+l.size());
 	}
 	@Test
 	public void testGetCustomer() {
@@ -122,7 +124,7 @@ public class TestMe {
 		logger.info("Listed Customers "+l.size());
 		Assert.assertTrue(l.size()>0);
 		
-		List<Customer> l1 = customerService.getCustomersByNameAndUserId("1",u.getUserId());
+		List<Customer> l1 = customerService.getCustomersByNameAndUserId("Adit1",u.getUserId());
 		Assert.assertTrue(l1.size()>0);
 		logger.info("Listed Customers "+l1.size());
 		logger.info("testGetCustomer END");
@@ -145,7 +147,7 @@ public class TestMe {
 		Customer user = new Customer();
 		user.setCustomerName("Adit");
 		user.setUser(u);		
-		
+		user.setAccountNumber("ac1");
 		customerDao.saveCustomer(user);
 		
 		Customer user1 = new Customer();

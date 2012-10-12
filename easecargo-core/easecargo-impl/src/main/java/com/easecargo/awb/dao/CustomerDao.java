@@ -7,12 +7,14 @@ import com.easecargo.awb.Customer;
 
 public interface CustomerDao {
 	public void saveCustomer(Customer customer);
+	public void deleteCustomer(Customer customer);
 
 	public List<Customer> selectAllCustomers();
 
 	public Customer selectCustomerById(Integer userId);
 
 	public List<Customer> selectCustomersByNameAndUserId(String customerName,Integer userId) ;
-	public List<Customer> selectCustomersByUser(Integer userId);
-	public void deleteCustomer(Customer customer);
+	public List<Customer> selectCustomersByUserId(Integer userId);
+	public List<Customer> selectCustomersByAccountAndUserId(String accountNumber,Integer userId);
+	public List<Customer> selectCustomersByAWBPrefixAndUserId(Integer awbPrefix,Integer userId) ;
 }

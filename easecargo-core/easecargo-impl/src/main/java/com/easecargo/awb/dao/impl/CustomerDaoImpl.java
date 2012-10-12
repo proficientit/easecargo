@@ -71,7 +71,18 @@ public class CustomerDaoImpl implements CustomerDao {
 	}	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Customer> selectCustomersByUser(Integer userId) {
+	public List<Customer> selectCustomersByAccountAndUserId(String accountNumber,Integer userId) {
+		accountNumber = accountNumber+"%";
+		logger.info("select Customer by account number");
+		Query query = sessionFactory.getCurrentSession().createQuery
+				(" from Customer where accountNumber like :accountNumber and user.userId = :userId");
+		query.setParameter("accountNumber", accountNumber);
+		query.setParameter("userId", userId);
+		return query.list();
+	}		
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Customer> selectCustomersByUserId(Integer userId) {
 		logger.info("select Customer by User");
 		Query query = sessionFactory.getCurrentSession().createQuery
 				(" from Customer where user.userId = :userId");
@@ -80,4 +91,14 @@ public class CustomerDaoImpl implements CustomerDao {
 		
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Customer> selectCustomersByAWBPrefixAndUserId(Integer awbPrefix,Integer userId) {
+		logger.info("select Customer by awbPrefix");
+		Query query = sessionFactory.getCurrentSession().createQuery
+				(" from Customer where awbPrefix = :awbPrefix and user.userId = :userId");
+		query.setParameter("awbPrefix", awbPrefix);
+		query.setParameter("userId", userId);
+		return query.list();
+	}		
 }
