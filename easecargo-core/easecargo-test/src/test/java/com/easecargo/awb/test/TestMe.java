@@ -27,7 +27,9 @@ import com.easecargo.awb.dao.HAWBDao;
 import com.easecargo.awb.service.AWBService;
 import com.easecargo.awb.service.CustomerService;
 import com.easecargo.awb.service.HAWBService;
+import com.easecargo.user.MyAccount;
 import com.easecargo.user.User;
+import com.easecargo.user.service.AccountService;
 import com.easecargo.user.service.UserService;
 
 
@@ -42,44 +44,24 @@ public class TestMe {
 
 
 	Logger logger = LoggerFactory.getLogger(TestMe.class);
+	@Autowired
 	private CustomerDao customerDao;
+	@Autowired
 	private AWBDao awbDao;
+	@Autowired
 	private HAWBDao hawbDao;
+	@Autowired
 	private AWBService awbService;
+	@Autowired
 	private HAWBService hawbService;
+	@Autowired
 	private CustomerService customerService;
+	@Autowired
 	private UserService userService;
-	
 	@Autowired
-	public void setCustomerDao(CustomerDao dao) {
-		this.customerDao = dao;
-	}
+	private AccountService accountService;
+	
 
-	@Autowired
-	public void setAWBDao(AWBDao dao) {
-		this.awbDao = dao;
-	}
-	@Autowired
-	public void setHAWBDao(HAWBDao dao) {
-		this.hawbDao = dao;
-	}	
-	@Autowired
-	public void setHAWBService(HAWBService hawbService) {
-		this.hawbService = hawbService;
-	}	
-	@Autowired
-	public void setAWBService(AWBService awbService) {
-		this.awbService = awbService;
-	}
-	@Autowired
-	public void setCustomerService(CustomerService customerService) {
-		this.customerService = customerService;
-	}
-	@Autowired
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}	
-	
 	@Test
 	public void testCreateUser() {
 		logger.info("testCreateUser Begin");
@@ -99,6 +81,20 @@ public class TestMe {
 		logger.info("testCreateUser END");
 		logger.info("------------------------");
 	}
+	@Test 
+	public void testAccount() {
+		User u = userService.getUserByName("Me");
+		MyAccount account = new MyAccount();
+		account.setUser(u);
+		account.setCurrency("Dollar");
+		account.setStatus("Valid");
+		accountService.saveAccount(account);
+		logger.info("Saved MyAccount");
+		logger.info("saveAccount END");
+		logger.info("------------------------");
+		logger.info(accountService.getAccountForUser(u.getUserId()).toString());		
+		logger.info("----fetch Account END-------------------");
+}
 	@Test
 	public void testCreateCustomer() {
 		logger.info("testCreateCustomer Begin");
@@ -112,7 +108,7 @@ public class TestMe {
 		logger.info("Saved Customer");
 		logger.info("testCreateCustomer END");
 		logger.info("------------------------");
-		
+
 	}
 	@Test
 	public void testGetCustomer() {
@@ -212,7 +208,7 @@ public class TestMe {
 		logger.info("------------------------");
 		AWB a1 = awbService.getAWB(157,111111111);
 		logger.info("fetched AWB via service "+a1.getAwbNumber());
-		logger.info("fetched AWB User via service "+a1.getUser().getUserName());
+		//logger.info("fetched AWB User via service "+a1.getUser().getUserName());
 		logger.info("testCreateAWB END");
 		logger.info("------------------------");	
 		

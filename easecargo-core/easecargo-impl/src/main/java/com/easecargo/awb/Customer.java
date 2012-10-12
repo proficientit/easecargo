@@ -14,7 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.easecargo.user.User;
@@ -80,9 +80,14 @@ public class Customer implements Serializable {
 	@Column(name="CUS_TYP")
 	private String customerType;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "USER_ID", nullable = false)
 	private User user;
+	
+	@Column(name="ALN_COD")
+	private String airlineCode;
+	@Column(name="AWB_PFX")
+	private Integer awbPrefix;
 	
 	public Customer() {
 		super();

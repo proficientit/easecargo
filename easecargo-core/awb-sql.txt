@@ -1,3 +1,5 @@
+alter table MY_ACC drop foreign key FK_ACC_USER;
+
 alter table MST_CUST drop foreign key FK_CUST_USER;
 
 alter table AWB_MAIN drop foreign key FK_AWB_USER;
@@ -45,13 +47,38 @@ drop table if exists RAT_LINE;
 
 drop table if exists HAWB_MAIN;
 
+drop table if exists MY_ACC;
+
 drop table if exists MST_USER;
 
 create table MST_USER (
 	USER_ID integer not null auto_increment,
 	  USER_NAME varchar(255),
+	  CUS_SALUT varchar(10),	
+ 	  FRST_NAM  varchar(100),	
+	  LST_NAM  varchar(100),	
+	  DEF_CURR varchar(10),	
+	  DEF_CTY	 varchar(10),	
+	  DEF_SIGN varchar(100),	
+	  CPY_EMAIL varchar(100),		  
 	  primary key (USER_ID)
 	);
+
+create table MY_ACC (
+	MYACC_ID integer not null auto_increment, 
+	  CURR varchar(10),	
+	  ACC_BAL float, 
+	  LST_RECH_DATE datetime, 
+	  LST_RECH_BY varchar(50),	
+	  STATUS varchar(50),	
+	  USER_ID integer not null,
+ 	  primary key (MYACC_ID) 
+);
+
+alter table MY_ACC 
+ 	add index FK_ACC_USER (USER_ID), 
+ 	add constraint FK_ACC_USER foreign key (USER_ID) 
+	references MST_USER (USER_ID);
 
 create table MST_CUST (
       MSTCUST_ID integer not null auto_increment, 
@@ -59,6 +86,8 @@ create table MST_CUST (
        ADRS_LINE varchar(35), 
        AGT_IATA_CASS_COD integer , 
        AGT_IATA_COD integer,
+       ALN_COD varchar(5),
+       AWB_PFX integer,       
        CTY_NAMR varchar(35), 
        CONT_NAME varchar(35), 
        CNTY_CODE varchar(2), 
