@@ -20,7 +20,7 @@
 		<commonsDbcpVersion>1.4</commonsDbcpVersion>
 		<CommonsBeanUtilsVersion>1.8.3</CommonsBeanUtilsVersion>		
 		<hibernateCommonsAnnotationsVersion>3.0.0.ga</hibernateCommonsAnnotationsVersion>
-		<hibernateVersion>4.1.1.Final</hibernateVersion>
+		<hibernateVersion>4.1.7.Final</hibernateVersion>
 		<jtaVersion>1.1</jtaVersion>
 		<junitVersion>4.8.2</junitVersion>
 		<springVersion>3.1.1.RELEASE</springVersion>
@@ -41,11 +41,11 @@
 				<version>${sl4jVersion}</version>
 			</dependency>
 
-			<dependency>
+			<!--dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-simple</artifactId>
 				<version>${sl4jVersion}</version>
-			</dependency>
+			</dependency -->
 
 			<dependency>
 				<groupId>jdbc</groupId>
