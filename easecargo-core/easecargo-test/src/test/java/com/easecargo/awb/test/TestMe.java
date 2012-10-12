@@ -31,6 +31,11 @@ import com.easecargo.user.User;
 import com.easecargo.user.service.UserService;
 
 
+/**
+ * testing comment
+ * @author rajesh
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({ "/app-config.xml" })
 public class TestMe { 
