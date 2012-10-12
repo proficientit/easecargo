@@ -60,12 +60,24 @@ public class CustomerDaoImpl implements CustomerDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Customer> selectCustomerByName(String customerName) {
+	public List<Customer> selectCustomersByNameAndUserId(String customerName,Integer userId) {
+		customerName = customerName+"%";
 		logger.info("select Customer by Name");
 		Query query = sessionFactory.getCurrentSession().createQuery
-				(" from Customer where customerName = :customerName");
+				(" from Customer where customerName like :customerName and user.userId = :userId");
 		query.setParameter("customerName", customerName);
+		query.setParameter("userId", userId);
 		return query.list();
 	}	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Customer> selectCustomersByUser(Integer userId) {
+		logger.info("select Customer by User");
+		Query query = sessionFactory.getCurrentSession().createQuery
+				(" from Customer where user.userId = :userId");
+		query.setParameter("userId", userId);
+		return query.list();
+		
+	}
 	
 }

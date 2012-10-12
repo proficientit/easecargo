@@ -108,18 +108,21 @@ public class TestMe {
 		logger.info("Saved Customer");
 		logger.info("testCreateCustomer END");
 		logger.info("------------------------");
+		logger.info(customerService.getCustomersByUser(u.getUserId()).toString());
+		
 
 	}
 	@Test
 	public void testGetCustomer() {
+		User u = userService.getUserByName("Me");		
 		logger.info("testGetCustomer Begin");
 		logger.info("------------------------");
 				
-		List<Customer> l = customerService.getCustomerByName("Adit");
+		List<Customer> l = customerService.getCustomersByNameAndUserId("Ad",u.getUserId());
 		logger.info("Listed Customers "+l.size());
 		Assert.assertTrue(l.size()>0);
 		
-		List<Customer> l1 = customerService.getCustomerByName("Adit1");
+		List<Customer> l1 = customerService.getCustomersByNameAndUserId("1",u.getUserId());
 		Assert.assertTrue(l1.size()>0);
 		logger.info("Listed Customers "+l1.size());
 		logger.info("testGetCustomer END");

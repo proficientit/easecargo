@@ -12,7 +12,7 @@ public interface CustomerDao {
 
 	public Customer selectCustomerById(Integer userId);
 
-	public List<Customer> selectCustomerByName(String customerName) ;
-	
+	public List<Customer> selectCustomersByNameAndUserId(String customerName,Integer userId) ;
+	public List<Customer> selectCustomersByUser(Integer userId);
 	public void deleteCustomer(Customer customer);
 }

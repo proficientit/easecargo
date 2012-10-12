@@ -12,7 +12,8 @@ public interface CustomerService {
 
 	public Customer getCustomerById(Integer customerId);
 
-	public List<Customer> getCustomerByName(String customerName)  ;
-
+	public List<Customer> getCustomersByNameAndUserId(String customerName,Integer userId)  ;
+	public List<Customer> getCustomersByUser(Integer userId)  ;
+	
 	public void deleteCustomer(Customer customer);
 }
