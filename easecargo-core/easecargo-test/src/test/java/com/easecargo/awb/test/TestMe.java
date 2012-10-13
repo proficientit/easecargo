@@ -209,6 +209,8 @@ public class TestMe {
 		AWB awb1 = awbDao.selectAWBByNumberAndUserId(157,111111111,u.getUserId());
 		logger.info("fetched AWB by Number "+awb1.getAwbNumber());
 		logger.info("------------------------");		
+		List<AWB> awbList2 = awbDao.searchAWB(null, null, null, null, u.getUserId());
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>-"+awbList2.size());
 		awbService.saveAWB(awb);
 		logger.info("Saved AWB via service");
 		logger.info("------------------------");
@@ -263,5 +265,7 @@ public class TestMe {
 		logger.info("------------------------"+awbList1.size());		
 		awbService.deleteAWBByNumberAndUserId(157,111111111,u.getUserId());
 		logger.info("Delete done");
+		List<AWB> awbList2 = awbService.searchAWB(null, null, 157, null, u.getUserId());
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>-"+awbList2.size());
 	}
 }

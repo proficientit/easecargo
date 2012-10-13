@@ -59,6 +59,12 @@ public class AWBServiceImpl implements AWBService {
 		awbDao.deleteAWB(awb);		
 	}
 	@Override
+	public List<AWB> searchAWB(String shipperName, String consigneeName,Integer awbPrefix, Integer awbNum, Integer userId){
+		return awbDao.searchAWB(shipperName, consigneeName, awbPrefix, awbNum, userId);
+	}
+	
+	
+	@Override
 	public void saveAWB(AWB awb) {
 		//right now customer doesnt have its own existence. hence deleting.
 		//need to revisit once user management is done

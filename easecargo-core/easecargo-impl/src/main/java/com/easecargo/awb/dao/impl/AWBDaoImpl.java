@@ -121,4 +121,29 @@ public class AWBDaoImpl implements AWBDao {
 		} else return null;
 			
 	}
+	@SuppressWarnings("unchecked")
+	@Override		
+	public List<AWB> searchAWB(String shipperName, String consigneeName,Integer awbPrefix, Integer awbNum, Integer userId) {
+		logger.info("select AWB by Num");
+		String queryString = " from AWB where user.userId=:userId ";
+		
+		if(shipperName!=null && !shipperName.equals(""))
+			queryString+="and shipper.customerName=:shipperName ";  
+		if(consigneeName!=null && !consigneeName.equals(""))
+			queryString+="and consignee.customerName=:consigneeName ";  
+		if(awbPrefix!=null && awbPrefix!=0)
+			queryString+="and awbPrefix=:awbPrefix ";  
+		if(awbNum!=null && awbNum!=0)
+			queryString+="and awbNum=:awbNum ";  
+
+		Query query = sessionFactory.getCurrentSession().createQuery(queryString);	
+		query.setParameter("userId", userId);
+		if(awbPrefix!=null && awbPrefix!=0)query.setParameter("awbPrefix", awbPrefix);
+		if(awbNum!=null && awbNum!=0) query.setParameter("awbNum", awbNum);
+		if(consigneeName!=null && !consigneeName.equals("")) query.setParameter("consigneeName", consigneeName);
+		if(shipperName!=null && !shipperName.equals("")) query.setParameter("shipperName", shipperName);
+		
+		return query.list();
+	}
+		
 }

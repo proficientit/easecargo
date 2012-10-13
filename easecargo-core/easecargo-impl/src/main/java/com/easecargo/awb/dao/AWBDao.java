@@ -17,4 +17,6 @@ public interface AWBDao {
 	public AWB selectAWBByIdAndUserId(Integer awbId, Integer userId) ;
 	public List<AWB> selectAllAWBByUserId( Integer userId) ;
 	
+	public List<AWB> searchAWB(String shipperName, String consigneeName,Integer awbPrefix, Integer awbNum, Integer userId) ;
+	
 }
