@@ -13,9 +13,30 @@ public interface CustomerService {
 
 	public Customer getCustomerById(Integer customerId);
 
+	/**
+	 * Name like "name%"
+	 * 
+	 * @param customerName
+	 * @param userId
+	 * @return
+	 */
 	public List<Customer> getCustomersByNameAndUserId(String customerName,Integer userId)  ;
 	public List<Customer> getCustomersByUserId(Integer userId)  ;
+	/**
+	 * account number like "accountNumber%"
+	 * 
+	 * @param accountNumber
+	 * @param userId
+	 * @return
+	 */
 	public List<Customer> getCustomersByAccountAndUserId(String accountNumber,Integer userId) ;
+	/**
+	 * awbPrefix equals "awbPrefix"
+	 * 
+	 * @param awbPrefix
+	 * @param userId
+	 * @return
+	 */
 	public List<Customer> getCustomersByAWBPrefixAndUserId(Integer awbPrefix,Integer userId) ;
 	
 }
