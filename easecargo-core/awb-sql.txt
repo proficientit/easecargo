@@ -1,5 +1,7 @@
 alter table MY_ACC drop foreign key FK_ACC_USER;
 
+alter table MY_BIL drop foreign key FK_MYBIL_USER;
+
 alter table MST_CUST drop foreign key FK_CUST_USER;
 
 alter table AWB_MAIN drop foreign key FK_AWB_USER;
@@ -49,6 +51,8 @@ drop table if exists HAWB_MAIN;
 
 drop table if exists MY_ACC;
 
+drop table if exists MY_BAL;
+
 drop table if exists MST_USER;
 
 create table MST_USER (
@@ -79,6 +83,25 @@ alter table MY_ACC
  	add index FK_ACC_USER (USER_ID), 
  	add constraint FK_ACC_USER foreign key (USER_ID) 
 	references MST_USER (USER_ID);
+
+
+ create table MY_BIL (
+         MYBIL_ID integer not null auto_increment, 
+         TXN_TIME datetime, 
+         TXN_NAME varchar(100),  
+         CURR varchar(10), 
+         ACT_ACTVTY varchar(40),
+         AMOUNT float,
+         AMT_BALANCE float,
+         USER_ID integer not null,
+         primary key (MYBIL_ID)
+     );
+
+alter table MY_BIL 
+ 	add index FK_MYBIL_USER (USER_ID), 
+ 	add constraint FK_MYBIL_USER foreign key (USER_ID) 
+	references MST_USER (USER_ID);
+
 
 create table MST_CUST (
       MSTCUST_ID integer not null auto_increment, 

@@ -28,8 +28,10 @@ import com.easecargo.awb.service.AWBService;
 import com.easecargo.awb.service.CustomerService;
 import com.easecargo.awb.service.HAWBService;
 import com.easecargo.user.MyAccount;
+import com.easecargo.user.MyBilling;
 import com.easecargo.user.User;
 import com.easecargo.user.service.AccountService;
+import com.easecargo.user.service.BillingService;
 import com.easecargo.user.service.UserService;
 
 
@@ -60,7 +62,8 @@ public class TestMe {
 	private UserService userService;
 	@Autowired
 	private AccountService accountService;
-	
+	@Autowired
+	private BillingService billingService;
 
 	@Test
 	public void testCreateUser() {
@@ -254,7 +257,7 @@ public class TestMe {
 		logger.info("------------------------");		
 	}
 	@Test	
-	public void testDeleteAWB() {
+	public void testsearchAWB() {
 		User u = userService.getUserByName("Me");
 		AWB a2 = awbService.getAWBByNumberAndUserId(157,111111111,u.getUserId());
 		logger.info("fetched AWB via service "+a2);
@@ -268,4 +271,20 @@ public class TestMe {
 		List<AWB> awbList2 = awbService.searchAWB(null, null, 157, null, u.getUserId());
 		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>-"+awbList2.size());
 	}
+	@Test	
+	public void testBilling() {
+		User u = userService.getUserByName("Me");
+		MyBilling bill = new MyBilling();
+		bill.setUser(u);
+		bill.setAccountActivity("Paid");
+		bill.setCurrency("Dollar");
+		billingService.saveBilling(bill);
+		logger.info("-----------------------dave billing. now go fetch-");		
+	
+		List<MyBilling> b = billingService.getBillingsByUserId(u.getUserId());
+		
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>-"+b.size());
+		
+	}
+	
 }
