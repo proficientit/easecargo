@@ -259,9 +259,9 @@ public class TestMe {
 		AWB a3 = awbService.getAWBByIdAndUserId(19,u.getUserId());
 		logger.info("fetched AWB via service "+a3);
 		logger.info("------------------------");		
-		List<AWB> awbList1 = awbService.getAWBByUserId(u.getUserId());
+		List<AWB> awbList1 = awbService.getAllAWBByUserId(u.getUserId());
 		logger.info("------------------------"+awbList1.size());		
 		awbService.deleteAWBByNumberAndUserId(157,111111111,u.getUserId());
-		
+		logger.info("Delete done");
 	}
 }

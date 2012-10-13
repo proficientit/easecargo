@@ -75,7 +75,7 @@ public class AWBDaoImpl implements AWBDao {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AWB> selectAWBByUserId( Integer userId) {
+	public List<AWB> selectAllAWBByUserId( Integer userId) {
 		logger.info("select AWB by Id");
 		Query query = sessionFactory.getCurrentSession().createQuery
 				(" from AWB where user.userId=:userId");

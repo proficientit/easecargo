@@ -33,8 +33,8 @@ public class AWBServiceImpl implements AWBService {
 		return awbDao.selectAWBById(id);
 	}
 	@Override
-	public List<AWB> getAWBByUserId( Integer userId) {
-		return awbDao.selectAWBByUserId(userId);
+	public List<AWB> getAllAWBByUserId( Integer userId) {
+		return awbDao.selectAllAWBByUserId(userId);
 	}
 	
 	@Override	
