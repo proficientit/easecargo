@@ -205,13 +205,14 @@ public class TestMe {
 		logger.info("");
 		logger.info("testCreateAWB Begin");
 		logger.info("------------------------");		
-		List<AWB> list = awbDao.selectAWBByNumber(157,111111111);
-		logger.info("fetched AWB by Number "+list.size());
+
+		AWB awb1 = awbDao.selectAWBByNumberAndUserId(157,111111111,u.getUserId());
+		logger.info("fetched AWB by Number "+awb1.getAwbNumber());
 		logger.info("------------------------");		
 		awbService.saveAWB(awb);
 		logger.info("Saved AWB via service");
 		logger.info("------------------------");
-		AWB a1 = awbService.getAWB(157,111111111);
+		AWB a1 = awbService.getAWBByNumberAndUserId(157,111111111, u.getUserId());
 		logger.info("fetched AWB via service "+a1.getAwbNumber());
 		//logger.info("fetched AWB User via service "+a1.getUser().getUserName());
 		logger.info("testCreateAWB END");
@@ -220,12 +221,13 @@ public class TestMe {
 	}
 	@Test	
 	public void testcreateHAWB() {
+		User u = userService.getUserByName("Me");
+		
 		logger.info("testcreateHAWB Begin");
 		logger.info("------------------------");
-		AWB a2 = awbService.getAWB(157,111111111);
+		AWB a2 = awbService.getAWBByNumberAndUserId(157,111111111, u.getUserId());
 		logger.info("fetched AWB via service "+a2);
 		HAWB hawb = new HAWB();
-		User u = userService.getUserByName("Me");		
 		hawb.setUser(u);			
 		hawb.setAwb(a2);
 		hawb.setHawbNum("12345");
@@ -251,10 +253,15 @@ public class TestMe {
 	}
 	@Test	
 	public void testDeleteAWB() {
-		awbService.deleteAWBByNumber(157,111111111);
-		logger.info("deteled AWB via service ");
-		AWB a2 = awbService.getAWB(157,111111111);
+		User u = userService.getUserByName("Me");
+		AWB a2 = awbService.getAWBByNumberAndUserId(157,111111111,u.getUserId());
 		logger.info("fetched AWB via service "+a2);
+		AWB a3 = awbService.getAWBByIdAndUserId(19,u.getUserId());
+		logger.info("fetched AWB via service "+a3);
+		logger.info("------------------------");		
+		List<AWB> awbList1 = awbService.getAWBByUserId(u.getUserId());
+		logger.info("------------------------"+awbList1.size());		
+		awbService.deleteAWBByNumberAndUserId(157,111111111,u.getUserId());
 		
 	}
 }

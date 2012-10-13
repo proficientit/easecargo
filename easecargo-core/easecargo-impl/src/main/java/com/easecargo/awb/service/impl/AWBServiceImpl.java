@@ -1,5 +1,6 @@
 package com.easecargo.awb.service.impl;
 
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -32,13 +33,18 @@ public class AWBServiceImpl implements AWBService {
 		return awbDao.selectAWBById(id);
 	}
 	@Override
-	public AWB getAWB(Integer awbPrefix, Integer awbNum) {
-		List<AWB> awbList = awbDao.selectAWBByNumber(awbPrefix, awbNum);
-		//assuming awbNumber is unique
-		if(awbList !=null && awbList.size()>0) {
-			return awbList.get(0);	
-		} else	return null;
-		
+	public List<AWB> getAWBByUserId( Integer userId) {
+		return awbDao.selectAWBByUserId(userId);
+	}
+	
+	@Override	
+	public AWB getAWBByIdAndUserId(Integer awbId, Integer userId) {
+		return awbDao.selectAWBByIdAndUserId(awbId, userId);
+	}
+	@Override
+	public AWB getAWBByNumberAndUserId(Integer awbPrefix, Integer awbNum, Integer userId) {
+		return awbDao.selectAWBByNumberAndUserId(awbPrefix, awbNum, userId);
+
 	}
 	@Override
 	public void deleteAWBById(Integer awbId) {
@@ -47,8 +53,8 @@ public class AWBServiceImpl implements AWBService {
 		awbDao.deleteAWB(awb);		
 	}	
 	@Override
-	public void deleteAWBByNumber(Integer awbPrefix, Integer awbNum) {
-		AWB awb = getAWB(awbPrefix, awbNum);
+	public void deleteAWBByNumberAndUserId(Integer awbPrefix, Integer awbNum, Integer userId) {
+		AWB awb = getAWBByNumberAndUserId(awbPrefix, awbNum, userId);
 		logger.info("fetched AWB via service "+awb.getAwbNumber());
 		awbDao.deleteAWB(awb);		
 	}
@@ -68,4 +74,5 @@ public class AWBServiceImpl implements AWBService {
 		if(customer != null)
 			customerDao.saveCustomer(customer);
 	}
+	
 }

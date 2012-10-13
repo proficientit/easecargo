@@ -12,6 +12,9 @@ public interface AWBDao {
 	public List<AWB> getAllAWBs();
 
 	public AWB selectAWBById(Integer awbId);
-
-	public List<AWB> selectAWBByNumber(Integer awbPrefix, Integer awbNum);
+	public AWB selectAWBByNumberAndUserId(Integer awbPrefix, Integer awbNum,Integer userId);
+	public AWB selectAWBByNumber(Integer awbPrefix, Integer awbNum);
+	public AWB selectAWBByIdAndUserId(Integer awbId, Integer userId) ;
+	public List<AWB> selectAWBByUserId( Integer userId) ;
+	
 }

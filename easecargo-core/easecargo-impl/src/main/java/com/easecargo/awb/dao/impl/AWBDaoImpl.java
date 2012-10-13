@@ -60,14 +60,65 @@ public class AWBDaoImpl implements AWBDao {
 	}
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AWB> selectAWBByNumber(Integer awbPrefix, Integer awbNum) {
+	public AWB selectAWBByIdAndUserId(Integer awbId, Integer userId) {
+		logger.info("select AWB by Id");
+		Query query = sessionFactory.getCurrentSession().createQuery
+				(" from AWB where awbId = :awbId and user.userId=:userId");
+		query.setParameter("awbId", awbId);
+		query.setParameter("userId", userId);
+		
+		List<AWB> awbList = query.list();
+		//assuming awbNumber is unique
+		if(awbList !=null && awbList.size()>0) {
+			return awbList.get(0);	
+		} else	return null;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AWB> selectAWBByUserId( Integer userId) {
+		logger.info("select AWB by Id");
+		Query query = sessionFactory.getCurrentSession().createQuery
+				(" from AWB where user.userId=:userId");
+		query.setParameter("userId", userId);
+		
+		return query.list();
+	
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public AWB selectAWBByNumber(Integer awbPrefix, Integer awbNum) {
 		logger.info("select AWB by Num");
 		Query query = sessionFactory.getCurrentSession().createQuery
 				(" from AWB where awbNumber = :awbNum and awbPrefix=:awbPrefix");
 		query.setParameter("awbPrefix", awbPrefix);
 		query.setParameter("awbNum", awbNum);
 		
-		return query.list();
+		List<AWB> awbList = query.list();
+		//assuming awbNumber is unique
+		if(awbList !=null && awbList.size()>0) {
+			return awbList.get(0);	
+		} else	return null;
+		
 
 	}	
+	@SuppressWarnings("unchecked")
+	@Override	
+	public AWB selectAWBByNumberAndUserId(Integer awbPrefix, Integer awbNum, Integer userId){
+		logger.info("select AWB by Num");
+		Query query = sessionFactory.getCurrentSession().createQuery
+				(" from AWB where awbNumber = :awbNum and awbPrefix=:awbPrefix and user.userId=:userId");
+		query.setParameter("awbPrefix", awbPrefix);
+		query.setParameter("awbNum", awbNum);
+		query.setParameter("userId", userId);
+		
+		
+		List<AWB> awbList = query.list();
+		//assuming awbNumber is unique
+		if(awbList !=null && awbList.size()>0) {
+			return awbList.get(0);
+			
+		} else return null;
+			
+	}
 }
