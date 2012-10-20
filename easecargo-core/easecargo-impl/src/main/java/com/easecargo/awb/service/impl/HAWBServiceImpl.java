@@ -31,8 +31,8 @@ public class HAWBServiceImpl implements HAWBService {
 		return hawbDao.selectHAWBById(id);
 	}
 	@Override
-	public HAWB getHAWB(String hawbNum) {
-		return hawbDao.selectHAWBByNumber(hawbNum);
+	public HAWB getHAWBByNumberAndUserId(String hawbNum, Integer userId) {
+		return hawbDao.selectHAWBByNumberAndUserId(hawbNum, userId);
 		
 	}
 	@Override
@@ -42,8 +42,8 @@ public class HAWBServiceImpl implements HAWBService {
 		hawbDao.deleteHAWB(hawb);		
 	}	
 	@Override
-	public void deleteHAWBByNumber(String hawbNum) {
-		HAWB hawb = getHAWB(hawbNum);
+	public void deleteHAWBByNumberAndUserId(String hawbNum,Integer userId) {
+		HAWB hawb = getHAWBByNumberAndUserId(hawbNum, userId);
 		logger.info("fetched HAWB via service "+hawb.getHawbNum());
 		hawbDao.deleteHAWB(hawb);		
 	}
@@ -55,6 +55,16 @@ public class HAWBServiceImpl implements HAWBService {
 		saveCustomer(hawb.getConsignee());
 		hawbDao.saveHAWB(hawb);
 		
+	}
+	@Override
+	public HAWB getHAWBByAWBPrefixAndNumberAndUserID(Integer awbPrefix, Integer awbNumber, Integer userId){
+		return hawbDao.selectHAWBByAWBPrefixAndNumberAndUserID(awbPrefix,awbNumber, userId);
+	
+	}
+	public void deleteHAWBByAWBPrefixAndNumberAndUserID(Integer awbPrefix, Integer awbNumber,Integer userId){
+		HAWB hawb = getHAWBByAWBPrefixAndNumberAndUserID(awbPrefix, awbNumber, userId);
+		logger.info("fetched HAWB via service "+hawb.getHawbNum());
+		hawbDao.deleteHAWB(hawb);	
 	}
 	
 	private void saveCustomer(Customer customer) {

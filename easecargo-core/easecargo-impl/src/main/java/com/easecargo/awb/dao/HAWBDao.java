@@ -10,5 +10,7 @@ public interface HAWBDao  {
 	public void deleteHAWB(HAWB hawb);
 	public List<HAWB> getAllHAWBs() ;
 	public HAWB selectHAWBById(Integer hawbId) ;
-	public HAWB selectHAWBByNumber(String hawbNum) ;
+	public HAWB selectHAWBByNumberAndUserId(String hawbNum, Integer userId) ;
+	public HAWB selectHAWBByAWBPrefixAndNumberAndUserID(Integer awbPrefix, Integer awbNumber, Integer userId);
+	
 }

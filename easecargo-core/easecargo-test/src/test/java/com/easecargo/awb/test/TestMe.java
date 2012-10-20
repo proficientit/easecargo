@@ -225,38 +225,6 @@ public class TestMe {
 		
 	}
 	@Test	
-	public void testcreateHAWB() {
-		User u = userService.getUserByName("Me");
-		
-		logger.info("testcreateHAWB Begin");
-		logger.info("------------------------");
-		AWB a2 = awbService.getAWBByNumberAndUserId(157,111111111, u.getUserId());
-		logger.info("fetched AWB via service "+a2);
-		HAWB hawb = new HAWB();
-		hawb.setUser(u);			
-		hawb.setAwb(a2);
-		hawb.setHawbNum("12345");
-		Customer user1 = new Customer();
-		user1.setCustomerName("Adit12");
-		user1.setUser(u);
-		customerDao.saveCustomer(user1);
-		
-		hawb.setShipper(user1);
-		hawb.setConsignee(user1);
-		
-		hawbDao.saveHAWB(hawb);
-		logger.info("------------------------");		
-		hawbService.saveHAWB(hawb);
-		logger.info("------------------------");		
-		HAWB h = hawbService.getHAWB(hawb.getHawbId());
-		logger.info("fetched HAWB via service "+ h.getHawbNum());
-		logger.info("------------------------");		
-		logger.info("fetched HAWB via service "+ hawbService.getHAWB("12345"));
-		//logger.info("fetched HAWB via service "+ hawbService.g);
-		logger.info("testcreateHAWB End");
-		logger.info("------------------------");		
-	}
-	@Test	
 	public void testsearchAWB() {
 		User u = userService.getUserByName("Me");
 		AWB a2 = awbService.getAWBByNumberAndUserId(157,111111111,u.getUserId());
@@ -285,6 +253,42 @@ public class TestMe {
 		
 		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>-"+b.size());
 		
+	}	
+	@Test	
+	public void testcreateHAWB() {
+		User u = userService.getUserByName("Me");
+		
+		logger.info("testcreateHAWB Begin");
+		logger.info("------------------------");
+		AWB a2 = awbService.getAWBByNumberAndUserId(157,111111111, u.getUserId());
+		logger.info("fetched AWB via service "+a2);
+		HAWB hawb = new HAWB();
+		hawb.setUser(u);			
+		hawb.setAwb(a2);
+		hawb.setHawbNum("12345");
+		Customer user1 = new Customer();
+		user1.setCustomerName("Adit12");
+		user1.setUser(u);
+		customerDao.saveCustomer(user1);
+		
+		hawb.setShipper(user1);
+		hawb.setConsignee(user1);
+		
+		hawbDao.saveHAWB(hawb);
+		logger.info("------------------------");		
+		hawbService.saveHAWB(hawb);
+		logger.info("------------------------");		
+		HAWB h = hawbService.getHAWB(hawb.getHawbId());
+		logger.info("fetched HAWB via service "+ h.getHawbNum());
+		logger.info("------------------------");		
+		logger.info("fetched HAWB via service "+ hawbService.getHAWBByNumberAndUserId("12345",u.getUserId()));
+		//logger.info("fetched HAWB via service "+ hawbService.g);
+		logger.info("testcreateHAWB End");
+		logger.info("------------------------");	
+		
+		h = hawbService.getHAWBByAWBPrefixAndNumberAndUserID(a2.getAwbPrefix(), a2.getAwbNumber(), u.getUserId());
+		logger.info("fetched HAWB via service "+h.getHawbNum());
 	}
+
 	
 }
