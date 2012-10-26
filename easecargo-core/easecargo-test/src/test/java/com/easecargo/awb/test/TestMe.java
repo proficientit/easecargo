@@ -347,10 +347,13 @@ public class TestMe {
 		logger.info("Airport size "+l1.size());
 		Airport apt1 = airportService.getAirportByCode("COK");
 		logger.info("Airport  "+apt1);	
-		
+		l1 = airportService.getAirportsInCity("COK");
+		logger.info("Airport size "+l1.size());
+		l1 = airportService.getAirportsInCountry("IN");
+		logger.info("Airport size "+l1.size());		
 		airportService.deleteAirport(apt1);
 		l = airportService.getAll();
 		logger.info("Airport size "+l.size());
-		
+	 
 	}
 }

@@ -16,4 +16,8 @@ public interface AirportService {
 	 */
 	public List<Airport> getAirportsByName(String airportName) ;
 	public Airport getAirportByCode(String airportCode) ;
+	public List<Airport> getAirportsInCity(String cityCode) ;
+	public List<Airport> getAirportsInCountry(String countryCode) ;
+	
+	
 }

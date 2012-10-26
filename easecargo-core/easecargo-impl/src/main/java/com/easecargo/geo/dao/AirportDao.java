@@ -10,4 +10,6 @@ public interface AirportDao {
 	public List<Airport> selectAll();
 	public List<Airport> selectAirportsByName(String airportName) ;
 	public Airport selectAirportByCode(String airportCode) ;
+	public List<Airport> selectAirportsInCity(String cityCode) ;
+	public List<Airport> selectAirportsInCountry(String countryCode) ;
 }

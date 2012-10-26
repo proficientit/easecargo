@@ -65,5 +65,23 @@ public class AirportDaoImpl implements AirportDao {
 			return list.get(0);
 		else return null;
 	}
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Airport> selectAirportsInCity(String cityCode){
+		logger.info("get All  AirportsInCity");
+		Query query = sessionFactory.getCurrentSession().createQuery
+				(" from Airport where cityCode = :cityCode");
+		query.setParameter("cityCode", cityCode);
+		return query.list();	
+	}	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Airport> selectAirportsInCountry(String countryCode) {
+		logger.info("get All  AirportsInCountry");
+		Query query = sessionFactory.getCurrentSession().createQuery
+				(" from Airport where countryCode = :countryCode");
+		query.setParameter("countryCode", countryCode);
+		return query.list();	
+	}	
 
 }
