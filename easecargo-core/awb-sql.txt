@@ -51,7 +51,7 @@ drop table if exists HAWB_MAIN;
 
 drop table if exists MY_ACC;
 
-drop table if exists MY_BAL;
+drop table if exists MY_BIL;
 
 drop table if exists MST_USER;
 
@@ -64,7 +64,9 @@ create table MST_USER (
 	  DEF_CURR varchar(10),	
 	  DEF_CTY	 varchar(10),	
 	  DEF_SIGN varchar(100),	
-	  CPY_EMAIL varchar(100),		  
+	  CPY_EMAIL varchar(100),
+	  STATUS varchar(100),
+	  LANG_PREF varchar(100),
 	  primary key (USER_ID)
 	);
 
@@ -147,7 +149,7 @@ create table MST_CUST (
        DES_LOC_NAME varchar(17), 
        DEST_RAT_QLFYR integer, 
        FIRST_CARR varchar(2), 
-       FLT_DAT datetime, 
+       FLT_DAT varchar(20), 
        FLT_NUM varchar(6), 
        OPT_SHIP_INFO varchar(200), 
        ORG_LOC_COD varchar(3), 

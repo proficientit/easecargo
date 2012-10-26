@@ -234,10 +234,10 @@ public class TestMe {
 		logger.info("------------------------");		
 		List<AWB> awbList1 = awbService.getAllAWBByUserId(u.getUserId());
 		logger.info("------------------------"+awbList1.size());		
-		awbService.deleteAWBByNumberAndUserId(157,111111111,u.getUserId());
+		//awbService.deleteAWBByNumberAndUserId(157,111111111,u.getUserId());
 		logger.info("Delete done");
 		List<AWB> awbList2 = awbService.searchAWB(null, null, 157, null, u.getUserId());
-		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>-"+awbList2.size());
+		logger.info(">>>>>>>>>>>>>>>>>>>>>>>>>>-******"+awbList2.size());
 	}
 	@Test	
 	public void testBilling() {
@@ -259,7 +259,7 @@ public class TestMe {
 		User u = userService.getUserByName("Me");
 		
 		logger.info("testcreateHAWB Begin");
-		logger.info("------------------------");
+		logger.info("***************************");
 		AWB a2 = awbService.getAWBByNumberAndUserId(157,111111111, u.getUserId());
 		logger.info("fetched AWB via service "+a2);
 		HAWB hawb = new HAWB();
