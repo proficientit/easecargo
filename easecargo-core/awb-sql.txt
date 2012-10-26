@@ -55,6 +55,8 @@ drop table if exists MY_BIL;
 
 drop table if exists MST_USER;
 
+drop table if exists MST_COD;
+
 create table MST_USER (
 	USER_ID integer not null auto_increment,
 	  USER_NAME varchar(255),
@@ -360,3 +362,10 @@ alter table HAWB_MAIN
        add constraint FK_HAWB_AWB foreign key (AWB_ID) 
        references AWB_MAIN (AWB_ID);
        
+create table MST_COD (
+	MSTCOD_ID integer not null auto_increment, 
+	COD_TYP varchar(40),
+	COD_VAL varchar(40),
+	COD_DESC varchar(100),	
+	primary key (MSTCOD_ID)
+);

@@ -27,6 +27,8 @@ import com.easecargo.awb.dao.HAWBDao;
 import com.easecargo.awb.service.AWBService;
 import com.easecargo.awb.service.CustomerService;
 import com.easecargo.awb.service.HAWBService;
+import com.easecargo.general.CodesMaster;
+import com.easecargo.general.service.CodeMasterService;
 import com.easecargo.user.MyAccount;
 import com.easecargo.user.MyBilling;
 import com.easecargo.user.User;
@@ -64,7 +66,9 @@ public class TestMe {
 	private AccountService accountService;
 	@Autowired
 	private BillingService billingService;
-
+	@Autowired
+	private CodeMasterService codeMasterService;
+	
 	@Test
 	public void testCreateUser() {
 		logger.info("testCreateUser Begin");
@@ -297,5 +301,27 @@ public class TestMe {
 		logger.info("fetched HAWB via service "+h.getHawbNum());
 	}
 
-	
+	@Test
+	public void testCodes(){
+		logger.info("testCodes");
+		CodesMaster m = new CodesMaster();
+		m.setCodeType("typ");
+		m.setDescription("desc");
+		m.setCodeValue("Val");
+		codeMasterService.saveCodesMaster(m);
+		
+		List<CodesMaster> l = codeMasterService.getAll();
+		logger.info("l.size "+ l.size());
+		List<CodesMaster> l1 = codeMasterService.getAllByType("ty");
+		logger.info("l1.size "+ l1.size());
+		
+		CodesMaster m1 = codeMasterService.getCodesMasterByType("typ");
+		logger.info("m1 "+ m1);
+		
+		codeMasterService.deleteCodesMaster(m1);
+		
+		l = codeMasterService.getAll();
+		logger.info("l.size "+ l.size());		
+		
+	}
 }

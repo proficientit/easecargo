@@ -104,6 +104,7 @@ public class CustomerDaoImpl implements CustomerDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Customer> selectCustomersByTypeAndUserId(String customerType, Integer userId) {
+		customerType=customerType+"%";
 		logger.info("select Customer by Type");
 		Query query = sessionFactory.getCurrentSession().createQuery
 				(" from Customer where customerType like :customerType and user.userId = :userId");
