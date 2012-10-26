@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.easecargo.user.MyBilling;
 import com.easecargo.user.dao.BillingDao;
@@ -20,10 +21,12 @@ public class BillingServiceImpl implements BillingService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public void saveBilling(MyBilling acc) {
 		billingDao.saveBilling(acc);
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void deleteBilling(MyBilling acc) {
 		billingDao.deleteBilling(acc);

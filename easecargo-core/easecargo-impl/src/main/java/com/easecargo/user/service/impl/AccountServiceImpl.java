@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.easecargo.user.MyAccount;
 import com.easecargo.user.dao.AccountDao;
@@ -22,11 +23,13 @@ public class AccountServiceImpl implements AccountService{
 		this.accountDao = dao;
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void saveAccount(MyAccount account) {
 		accountDao.saveAccount(account);
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void deleteAccount(MyAccount account) {
 		accountDao.deleteAccount(account);

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.easecargo.awb.*;
 import com.easecargo.awb.dao.*;
@@ -47,11 +48,13 @@ public class AWBServiceImpl implements AWBService {
 
 	}
 	@Override
+	@Transactional(readOnly = false)
 	public void deleteAWBById(Integer awbId) {
 		AWB awb = awbDao.selectAWBById(awbId);
 		logger.info("fetched AWB via service "+awb.getAwbNumber());
 		awbDao.deleteAWB(awb);		
 	}	
+	@Transactional(readOnly = false)
 	@Override
 	public void deleteAWBByNumberAndUserId(Integer awbPrefix, Integer awbNum, Integer userId) {
 		AWB awb = getAWBByNumberAndUserId(awbPrefix, awbNum, userId);
@@ -64,6 +67,7 @@ public class AWBServiceImpl implements AWBService {
 	}
 	
 	
+	@Transactional(readOnly = false)
 	@Override
 	public void saveAWB(AWB awb) {
 		//right now customer doesnt have its own existence. hence deleting.

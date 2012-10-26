@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.easecargo.awb.Customer;
 import com.easecargo.awb.dao.CustomerDao;
@@ -22,6 +23,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public void saveCustomer(Customer customer) {
 		customerDao.saveCustomer(customer);
 	}
@@ -37,6 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	@Transactional(readOnly = false)
 	public void deleteCustomer(Customer customer) {
 		customerDao.deleteCustomer(customer);
 	}

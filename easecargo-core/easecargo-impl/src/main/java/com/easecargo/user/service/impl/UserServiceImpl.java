@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.easecargo.user.User;
 import com.easecargo.user.dao.UserDao;
@@ -21,6 +22,7 @@ public class UserServiceImpl implements UserService {
 		this.userDao = dao;
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void saveUser(User user) {
 		userDao.saveUser(user);
@@ -36,6 +38,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.selectUserById(userId);
 	}
 
+	@Transactional(readOnly = false)
 	@Override
 	public void deleteUser(User user) {
 		userDao.deleteUser(user);

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.easecargo.awb.Customer;
 import com.easecargo.awb.HAWB;
@@ -35,18 +36,21 @@ public class HAWBServiceImpl implements HAWBService {
 		return hawbDao.selectHAWBByNumberAndUserId(hawbNum, userId);
 		
 	}
+	@Transactional(readOnly = false)
 	@Override
 	public void deleteHAWBById(Integer hawbId) {
 		HAWB hawb = hawbDao.selectHAWBById(hawbId);
 		logger.info("fetched HAWB via service "+hawb.getHawbNum());
 		hawbDao.deleteHAWB(hawb);		
 	}	
+	@Transactional(readOnly = false)
 	@Override
 	public void deleteHAWBByNumberAndUserId(String hawbNum,Integer userId) {
 		HAWB hawb = getHAWBByNumberAndUserId(hawbNum, userId);
 		logger.info("fetched HAWB via service "+hawb.getHawbNum());
 		hawbDao.deleteHAWB(hawb);		
 	}
+	@Transactional(readOnly = false)
 	@Override
 	public void saveHAWB(HAWB hawb) {
 		//right now customer doesnt have its own existence. hence deleting.
@@ -61,6 +65,7 @@ public class HAWBServiceImpl implements HAWBService {
 		return hawbDao.selectHAWBByAWBPrefixAndNumberAndUserID(awbPrefix,awbNumber, userId);
 	
 	}
+	@Transactional(readOnly = false)
 	public void deleteHAWBByAWBPrefixAndNumberAndUserID(Integer awbPrefix, Integer awbNumber,Integer userId){
 		HAWB hawb = getHAWBByAWBPrefixAndNumberAndUserID(awbPrefix, awbNumber, userId);
 		logger.info("fetched HAWB via service "+hawb.getHawbNum());
