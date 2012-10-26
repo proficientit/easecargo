@@ -38,6 +38,11 @@ public class User implements Serializable {
 	@Column(name = "USER_Name")
 	private String userName; //mail id
 	
+	@Column(name = "STATUS")	
+	private String status;
+	@Column(name = "LANG_PREF")	
+	private String langaugerPreference;
+	
 	public User() {
 	}
 
@@ -111,6 +116,22 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getLangaugerPreference() {
+		return langaugerPreference;
+	}
+
+	public void setLangaugerPreference(String langaugerPreference) {
+		this.langaugerPreference = langaugerPreference;
 	}
 	
 

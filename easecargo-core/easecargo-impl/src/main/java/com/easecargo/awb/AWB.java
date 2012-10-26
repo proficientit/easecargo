@@ -5,7 +5,6 @@
 package com.easecargo.awb;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -74,7 +73,7 @@ public class AWB implements Serializable {
 	@Column(name = "FLT_NUM")
 	private String flightNumber;
 	@Column(name = "FLT_DAT")
-	private Timestamp flightDate;
+	private String flightDate;
 	@Column(name = "REF_NUMBER")
 	private String referenceNumber;
 	@Column(name = "OPT_SHIP_INFO")
@@ -304,12 +303,12 @@ public class AWB implements Serializable {
 	}
 
 
-	public Timestamp getFlightDate() {
+	public String getFlightDate() {
 		return flightDate;
 	}
 
 
-	public void setFlightDate(Timestamp flightDate) {
+	public void setFlightDate(String flightDate) {
 		this.flightDate = flightDate;
 	}
 
