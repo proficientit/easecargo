@@ -38,5 +38,13 @@ public interface CustomerService {
 	 * @return
 	 */
 	public List<Customer> getCustomersByAWBPrefixAndUserId(Integer awbPrefix,Integer userId) ;
+	/**
+	 * customerType like "customerType"
+	 * 
+	 * @param customerType
+	 * @param userId
+	 * @return
+	 */
+	public List<Customer> getCustomersByTypeAndUserId(String customerType, Integer userId);
 	
 }

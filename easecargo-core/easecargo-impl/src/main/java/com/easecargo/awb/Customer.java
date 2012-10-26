@@ -347,6 +347,22 @@ public class Customer implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public String getAirlineCode() {
+		return airlineCode;
+	}
+
+	public void setAirlineCode(String airlineCode) {
+		this.airlineCode = airlineCode;
+	}
+
+	public Integer getAwbPrefix() {
+		return awbPrefix;
+	}
+
+	public void setAwbPrefix(Integer awbPrefix) {
+		this.awbPrefix = awbPrefix;
+	}
 	
 
 }

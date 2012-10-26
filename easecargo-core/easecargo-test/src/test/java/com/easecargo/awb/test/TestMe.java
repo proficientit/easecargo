@@ -71,6 +71,7 @@ public class TestMe {
 		logger.info("------------------------");
 		User u = new User();
 		u.setUserName("Me");
+		
 		userService.saveUser(u);
 	
 		User u1 = new User();
@@ -106,6 +107,8 @@ public class TestMe {
 		User u = userService.getUserByName("Me");		
 		user.setUser(u);
 		user.setCustomerName("Adit");
+		user.setCustomerType("TYPE1");
+		user.setAwbPrefix(157);
 		customerService.saveCustomer(user);
 		Assert.assertTrue(customerService.getAllCustomers().size() > 0);
 		logger.info("Saved Customer");
@@ -133,6 +136,10 @@ public class TestMe {
 		logger.info("testGetCustomer END");
 		logger.info("------------------------");
 		
+		l1 = customerService.getCustomersByAWBPrefixAndUserId(157, u.getUserId());
+		logger.info("Listed Customers "+l1.size());
+		l1 = customerService.getCustomersByTypeAndUserId("TYPE1",  u.getUserId());
+		logger.info("Listed Customers "+l1.size());
 	}
 
 	@Test

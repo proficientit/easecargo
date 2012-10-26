@@ -100,5 +100,16 @@ public class CustomerDaoImpl implements CustomerDao {
 		query.setParameter("awbPrefix", awbPrefix);
 		query.setParameter("userId", userId);
 		return query.list();
-	}		
+	}	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Customer> selectCustomersByTypeAndUserId(String customerType, Integer userId) {
+		logger.info("select Customer by Type");
+		Query query = sessionFactory.getCurrentSession().createQuery
+				(" from Customer where customerType like :customerType and user.userId = :userId");
+		query.setParameter("customerType", customerType);
+		query.setParameter("userId", userId);
+		return query.list();		
+	}
+	
 }

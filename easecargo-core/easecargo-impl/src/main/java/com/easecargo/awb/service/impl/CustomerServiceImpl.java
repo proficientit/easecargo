@@ -61,4 +61,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<Customer> getCustomersByAWBPrefixAndUserId(Integer awbPrefix,Integer userId) {
 		return customerDao.selectCustomersByAWBPrefixAndUserId(awbPrefix, userId);
 	}
+	@Override
+	public List<Customer> getCustomersByTypeAndUserId(String customerType, Integer userId) {
+		return customerDao.selectCustomersByTypeAndUserId(customerType, userId);
+	}
+	
 }

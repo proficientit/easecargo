@@ -17,4 +17,6 @@ public interface CustomerDao {
 	public List<Customer> selectCustomersByUserId(Integer userId);
 	public List<Customer> selectCustomersByAccountAndUserId(String accountNumber,Integer userId);
 	public List<Customer> selectCustomersByAWBPrefixAndUserId(Integer awbPrefix,Integer userId) ;
+	public List<Customer> selectCustomersByTypeAndUserId(String customerType, Integer userId);
+	
 }
