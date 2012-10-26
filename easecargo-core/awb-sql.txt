@@ -57,6 +57,8 @@ drop table if exists MST_USER;
 
 drop table if exists MST_COD;
 
+drop table if exists MST_APT;
+
 create table MST_USER (
 	USER_ID integer not null auto_increment,
 	  USER_NAME varchar(255),
@@ -368,4 +370,15 @@ create table MST_COD (
 	COD_VAL varchar(40),
 	COD_DESC varchar(100),	
 	primary key (MSTCOD_ID)
+);
+
+create table MST_APT (
+	MSTAPT_ID integer not null auto_increment, 
+	APT_COD varchar(10),
+	APT_NAM varchar(40),
+	CTY_COD varchar(10),	
+	CTY_NAM varchar(100),
+	CNTRY_COD varchar(10),
+	CNTRY_NAM varchar(100),	
+	primary key (MSTAPT_ID)
 );

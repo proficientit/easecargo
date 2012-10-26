@@ -29,6 +29,8 @@ import com.easecargo.awb.service.CustomerService;
 import com.easecargo.awb.service.HAWBService;
 import com.easecargo.general.CodesMaster;
 import com.easecargo.general.service.CodeMasterService;
+import com.easecargo.geo.Airport;
+import com.easecargo.geo.service.AirportService;
 import com.easecargo.user.MyAccount;
 import com.easecargo.user.MyBilling;
 import com.easecargo.user.User;
@@ -68,6 +70,8 @@ public class TestMe {
 	private BillingService billingService;
 	@Autowired
 	private CodeMasterService codeMasterService;
+	@Autowired
+	private AirportService airportService;
 	
 	@Test
 	public void testCreateUser() {
@@ -311,9 +315,9 @@ public class TestMe {
 		codeMasterService.saveCodesMaster(m);
 		
 		List<CodesMaster> l = codeMasterService.getAll();
-		logger.info("l.size "+ l.size());
+		logger.info("CodesMaster.size "+ l.size());
 		List<CodesMaster> l1 = codeMasterService.getAllByType("ty");
-		logger.info("l1.size "+ l1.size());
+		logger.info("CodesMaster.size "+ l1.size());
 		
 		CodesMaster m1 = codeMasterService.getCodesMasterByType("typ");
 		logger.info("m1 "+ m1);
@@ -321,7 +325,32 @@ public class TestMe {
 		codeMasterService.deleteCodesMaster(m1);
 		
 		l = codeMasterService.getAll();
-		logger.info("l.size "+ l.size());		
+		logger.info("CodesMaster.size "+ l.size());		
+		
+	}
+
+	@Test
+	public void testAirport(){
+		logger.info("test airport");
+		Airport apt = new Airport();
+		apt.setAirportCode("COK");
+		apt.setAirportName("Cochin Intl");
+		apt.setCityCode("COK");
+		apt.setCityName("Cochin");
+		apt.setCountryCode("IN");
+		apt.setCountryName("India");
+		
+		airportService.saveAirport(apt);
+		List<Airport> l = airportService.getAll();
+		logger.info("Airport size "+l.size());
+		List<Airport> l1 = airportService.getAirportsByName("CO");
+		logger.info("Airport size "+l1.size());
+		Airport apt1 = airportService.getAirportByCode("COK");
+		logger.info("Airport  "+apt1);	
+		
+		airportService.deleteAirport(apt1);
+		l = airportService.getAll();
+		logger.info("Airport size "+l.size());
 		
 	}
 }

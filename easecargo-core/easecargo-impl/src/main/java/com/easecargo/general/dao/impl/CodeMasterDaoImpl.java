@@ -42,7 +42,8 @@ public class CodeMasterDaoImpl implements CodeMasterDao {
 	public List<CodesMaster> selectAll() {
 		logger.info("get All CodesMaster");
 		return (List<CodesMaster>) sessionFactory.getCurrentSession()
-				.createQuery("from CodesMaster").list();	}
+				.createQuery("from CodesMaster").list();	
+	}
 
 	@Override
 	@SuppressWarnings("unchecked")
